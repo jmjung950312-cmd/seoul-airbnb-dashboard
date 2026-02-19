@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.env
+venv/
+.venv/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# Large / unnecessary data files (dashboard only needs raw + district_clustered)
+data/processed/seoul_airbnb_features.csv
+data/processed/X_train_host.csv
+data/processed/X_test_host.csv
+data/processed/y_train_host_log.csv
+data/processed/y_train_host_orig.csv
+data/processed/y_test_host_log.csv
+data/processed/y_test_host_orig.csv
+data/raw/seoul_airbnb_geo_masked.csv
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Reports / figures (large PNGs)
+reports/
