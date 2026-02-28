@@ -1,0 +1,89 @@
+{
+  "features_designed": [
+    {
+      "name": "revpar_trend",
+      "formula": "(l90d_revpar - ttm_revpar/4) / (ttm_revpar/4 + 1e-6)",
+      "type": "host",
+      "reason": "최근 90일 RevPAR와 연간 RevPAR의 분기 평균을 비교해 성장·하락 추세를 포착. 양수면 최근 성과가 연간 평균보다 높아 성장 국면, 음수면 하락 국면을 시사. 호스트가 가격 전략을 조정할 신호로 활용 가능."
+    },
+    {
+      "name": "log_ttm_revpar",
+      "formula": "np.log1p(ttm_revpar)",
+      "type": "host",
+      "reason": "ttm_revpar의 우편향(right-skewed) 분포를 로그 변환으로 정규화. 회귀 모델의 잔차 정규성 가정 충족 및 극단값 영향 완화. 예측 모델의 타깃 변수로도 활용."
+    },
+    {
+      "name": "is_active_operating",
+      "formula": "(refined_status=='Active') & (operation_status=='Operating')",
+      "type": "host",
+      "reason": "실제 운영 중인 리스팅만 필터링. Dormant·Ghost 리스팅은 RevPAR=0으로 분석 노이즈를 발생시키므로 호스트 성과 비교는 이 서브셋 내에서 수행."
+    },
+    {
+      "name": "revpar_percentile",
+      "formula": "df_active['ttm_revpar'].rank(pct=True)",
+      "type": "host",
+      "reason": "Active+Operating 리스팅 내에서 해당 물건의 RevPAR 상대적 위치를 0~1로 표현. 호스트가 자신의 경쟁력 순위를 직관적으로 파악하고, 개선 여지를 수치화할 수 있음."
+    },
+    {
+      "name": "price_efficiency",
+      "formula": "ttm_avg_rate / (ttm_occupancy + 1e-6)",
+      "type": "host",
+      "reason": "단위 점유율을 얻기 위해 지불하는 가격 비용. 낮을수록 상대적으로 낮은 가격으로 높은 점유율을 달성하는 효율적 운영. ttm_occupancy=0인 비운영 리스팅에서 극단값 발생 가능하므로 clip(upper=99th percentile) 적용."
+    },
+    {
+      "name": "photos_tier",
+      "formula": "pd.qcut(photos_count, 4, labels=['하', '중하', '중상', '상'], duplicates='drop')",
+      "type": "host",
+      "reason": "사진 수를 4분위로 범주화. 사진 품질·수량이 예약 전환율에 영향을 미치므로, 비선형 효과를 포착하기 위해 연속형 대신 순서형 범주 변수로 처리."
+    },
+    {
+      "name": "review_rate",
+      "formula": "num_reviews / (ttm_occupancy * 365 + 1e-6), clip(upper=99th percentile)",
+      "type": "host",
+      "reason": "실제 투숙 일수 대비 리뷰 작성 비율. 높을수록 게스트의 리뷰 참여도가 높아 신뢰도·노출도 향상으로 이어질 가능성이 큼. ttm_occupancy=0이지만 리뷰가 있는 케이스(11,808건)에서 inf 발생 방지를 위해 99th percentile clip 적용."
+    },
+    {
+      "name": "poi_dist_category",
+      "formula": "pd.cut(nearest_poi_dist_km, bins=[0, 0.3, 0.7, 1.0, 2.0], labels=['초근접', '근접', '보통', '원거리'], include_lowest=True)",
+      "type": "host",
+      "reason": "주요 POI까지의 거리를 관광 편의성 관점의 4단계 범주로 변환. 데이터 최대값 1.155km로 bins 상한 2.0 내 커버. 비선형 입지 프리미엄 효과를 모델에 반영하고, 호스트가 입지 경쟁력을 직관적으로 이해하도록 지원."
+    },
+    {
+      "name": "district_median_revpar",
+      "formula": "df.groupby('district')['ttm_revpar'].transform('median')",
+      "type": "platform",
+      "reason": "자치구별 중위 RevPAR로 지역 시장 수준을 대표. 평균 대신 중위값 사용으로 극단값 영향 배제. 일부 자치구(동작구 등)는 중위값=0(절반 이상이 RevPAR=0)인 점을 revpar_vs_district_median 계산 시 고려."
+    },
+    {
+      "name": "district_listing_count",
+      "formula": "df.groupby('district')['district'].transform('count')",
+      "type": "platform",
+      "reason": "자치구별 공급량. 공급 과잉 여부와 경쟁 강도를 나타내며, RevPAR에 대한 공급 압력 효과를 모델에 반영."
+    },
+    {
+      "name": "district_superhost_rate",
+      "formula": "df.groupby('district')['superhost'].transform('mean')",
+      "type": "platform",
+      "reason": "자치구별 슈퍼호스트 비율. 지역 서비스 품질 수준을 나타내며, 플랫폼 관점에서 품질 관리 개입 우선순위 자치구 선정에 활용."
+    },
+    {
+      "name": "district_operating_rate",
+      "formula": "df.groupby('district')['operation_status'].transform(lambda x: (x=='Operating').mean())",
+      "type": "platform",
+      "reason": "자치구별 실제 운영 비율. 높을수록 해당 지역의 시장 활성도가 높음. 플랫폼의 공급 활성화 정책 효과 측정 지표."
+    },
+    {
+      "name": "district_entire_home_rate",
+      "formula": "df.groupby('district')['room_type'].transform(lambda x: (x=='entire_home').mean())",
+      "type": "platform",
+      "reason": "자치구별 독채(entire_home) 비율. 독채 비율이 높은 지역은 가족·단체 수요가 크고 RevPAR가 높은 경향. 자치구별 수요 유형 프로파일링에 활용."
+    },
+    {
+      "name": "revpar_vs_district_median",
+      "formula": "ttm_revpar / (district_median_revpar + 1e-6), clip(upper=99th percentile)",
+      "type": "platform",
+      "reason": "개별 리스팅의 RevPAR를 자치구 중위값 대비 상대적 비율로 표현. 1 초과시 지역 평균 이상 성과, 미만시 저성과. 동작구처럼 중위값=0인 자치구에서 극단값 발생하므로 99th percentile clip 적용해 모델 안정성 확보."
+    }
+  ],
+  "python_code": "# =============================================================================\n# 서울 에어비앤비 RevPAR 분석 - 파생 변수 설계\n# 목적: 호스트 관점(물건 수준) + 플랫폼 관점(자치구 수준) 파생 변수 생성\n# 데이터: 32,061 rows × 42 cols\n# 생성 파생 변수: 14개 (원본 42 + 파생 14 = 총 56컬럼)\n# =============================================================================\n\nimport pandas as pd\nimport numpy as np\nimport warnings\nwarnings.filterwarnings('ignore')\n\n# ─────────────────────────────────────────────\n# 0. 데이터 로드\n# ─────────────────────────────────────────────\nRAW_PATH = '/Users/jungmo/Documents/data-projects/seoul_airbnb_cleaned_2026-02-18_11-23/data/raw/seoul_airbnb_cleaned.csv'\nOUT_PATH = '/Users/jungmo/Documents/data-projects/seoul_airbnb_cleaned_2026-02-18_11-23/data/processed/seoul_airbnb_features.csv'\n\ndf = pd.read_csv(RAW_PATH)\nprint(f'원본 데이터 크기: {df.shape}')\nprint(f'컬럼 목록: {df.columns.tolist()}')\n\n# ─────────────────────────────────────────────\n# 1. Active+Operating 서브셋 생성\n# ─────────────────────────────────────────────\n# 실제 운영 중인 리스팅만 필터링\n# - Dormant: 장기 미활성, Ghost: 유령 리스팅 → RevPAR=0으로 성과 분석 시 노이즈 발생\n# - 호스트 관점 변수(revpar_percentile)는 이 서브셋 내에서만 의미 있는 비교 가능\ndf_active = df[\n    (df['refined_status'] == 'Active') &\n    (df['operation_status'] == 'Operating')\n].copy()\nprint(f'\\nActive+Operating 서브셋 크기: {df_active.shape}')\nprint(f'전체 대비 비율: {len(df_active)/len(df):.2%}')\n\n# ─────────────────────────────────────────────\n# [RevPAR 관련] 파생 변수\n# ─────────────────────────────────────────────\n\n# (1) revpar_trend: 최근 90일 vs 연간 분기 평균 성장률\n# - 양수: l90d_revpar가 ttm_revpar/4보다 높아 최근 성장 추세\n# - 음수: 최근 성과가 연간 평균보다 낮아 하락 추세\n# - 분모 +1e-6: ttm_revpar=0인 케이스(RevPAR 없는 리스팅) 제로 나눗셈 방지\ndf['revpar_trend'] = (\n    (df['l90d_revpar'] - df['ttm_revpar'] / 4) /\n    (df['ttm_revpar'] / 4 + 1e-6)\n)\nprint('\\n[1] revpar_trend 분포 (성장·하락 추세 지표):')\nprint(df['revpar_trend'].describe().round(4))\nprint(f'  성장 추세(양수) 비율: {(df[\"revpar_trend\"] > 0).mean():.2%}')\nprint(f'  하락 추세(음수) 비율: {(df[\"revpar_trend\"] < 0).mean():.2%}')\nprint(f'  정체(=0) 비율: {(df[\"revpar_trend\"] == 0).mean():.2%}')\n\n# (2) log_ttm_revpar: 우편향 RevPAR 로그 변환\n# - ttm_revpar: 평균 31,310원, 최대 830,186원으로 강한 우편향\n# - np.log1p(x) = log(1+x)로 0값 처리 안전 (log(1+0)=0)\n# - 정규분포에 가까운 형태로 변환해 선형 모델 성능 향상\ndf['log_ttm_revpar'] = np.log1p(df['ttm_revpar'])\nprint('\\n[2] log_ttm_revpar 분포 (로그 정규화 RevPAR):')\nprint(df['log_ttm_revpar'].describe().round(4))\nprint(f'  0값(RevPAR=0) 비율: {(df[\"log_ttm_revpar\"] == 0).mean():.2%}')\n\n# (3) is_active_operating: 실제 운영 여부 불리언 플래그\n# - 모델에서 운영 상태를 명시적 피처로 포함 시 활용\n# - True: 44.91% (14,399건), False: 55.09% (17,662건)\ndf['is_active_operating'] = (\n    (df['refined_status'] == 'Active') &\n    (df['operation_status'] == 'Operating')\n)\nprint('\\n[3] is_active_operating 분포 (실제 운영 여부):')\nprint(df['is_active_operating'].value_counts())\nprint(f'  운영 중(Active+Operating) 비율: {df[\"is_active_operating\"].mean():.2%}')\n\n# ─────────────────────────────────────────────\n# [호스트 관점] 물건 수준 파생 변수\n# ─────────────────────────────────────────────\n\n# (4) revpar_percentile: Active+Operating 내 RevPAR 백분위 순위\n# - 비운영 리스팅(17,662건)은 NaN 처리 (비교 대상 외)\n# - 0.0~1.0 범위, 0.9 이상 = 상위 10% 고성과 리스팅\ndf_active['revpar_percentile'] = df_active['ttm_revpar'].rank(pct=True)\ndf = df.merge(\n    df_active[['revpar_percentile']],\n    how='left',\n    left_index=True,\n    right_index=True\n)\nprint('\\n[4] revpar_percentile 분포 (Active+Operating 내 상대 순위):')\nprint(df['revpar_percentile'].describe().round(4))\nprint(f'  결측(비운영 리스팅): {df[\"revpar_percentile\"].isna().sum():,}건')\nprint(f'  상위 10%(>=0.9) 리스팅 수: {(df[\"revpar_percentile\"] >= 0.9).sum():,}건')\n\n# (5) price_efficiency: 단위 점유율 당 평균 요금 (가격 효율성)\n# - 낮을수록 낮은 가격으로 높은 점유율 달성 → 효율적 운영\n# - 높을수록 고가 정책이지만 점유율이 낮음\n# - ttm_occupancy=0인 비운영 리스팅(11,896건)에서 극단값 발생\n# - 99th percentile clip으로 극단값 완화\ndf['price_efficiency'] = df['ttm_avg_rate'] / (df['ttm_occupancy'] + 1e-6)\npe_cap = df['price_efficiency'].quantile(0.99)\ndf['price_efficiency'] = df['price_efficiency'].clip(upper=pe_cap)\nprint('\\n[5] price_efficiency 분포 (99th percentile clip 적용):')\nprint(df['price_efficiency'].describe().round(0))\nprint(f'  clip 상한값(99th pct): {pe_cap:,.0f}원')\nprint(f'  중위값: {df[\"price_efficiency\"].median():,.0f}원')\n\n# (6) photos_tier: 사진 수 4분위 범주화\n# - 하(Q1 이하), 중하(Q1~Q2), 중상(Q2~Q3), 상(Q3 초과)\n# - photos_count: min=0, Q1=13, Q2=22, Q3=35, max=299\n# - duplicates='drop': 동점 구간 자동 병합 처리\ndf['photos_tier'] = pd.qcut(\n    df['photos_count'],\n    q=4,\n    labels=['하', '중하', '중상', '상'],\n    duplicates='drop'\n)\nprint('\\n[6] photos_tier 분포 (사진 수 4분위 범주):')\nprint(df['photos_tier'].value_counts().sort_index())\nprint(f'  분위 기준값: {df[\"photos_count\"].quantile([0.25, 0.5, 0.75]).to_dict()}')\n\n# (7) review_rate: 투숙 일수 대비 리뷰 작성 비율\n# - 높을수록 게스트의 리뷰 참여도가 높음 → 노출도·신뢰도 향상\n# - ttm_occupancy=0이지만 num_reviews>0인 케이스(11,808건) 존재\n#   (과거 투숙 리뷰가 남아있는 현재 비운영 리스팅)\n# - 99th percentile clip으로 극단값 제어\ndf['review_rate'] = df['num_reviews'] / (df['ttm_occupancy'] * 365 + 1e-6)\nrr_cap = df['review_rate'].quantile(0.99)\ndf['review_rate'] = df['review_rate'].clip(upper=rr_cap)\nprint('\\n[7] review_rate 분포 (99th percentile clip 적용):')\nprint(df['review_rate'].describe().round(4))\nprint(f'  clip 상한값(99th pct): {rr_cap:.4f}')\nprint(f'  중위값: {df[\"review_rate\"].median():.4f}')\n\n# (8) poi_dist_category: POI 거리 범주화 (관광 편의성 수준)\n# - 초근접(0~0.3km): 도보 4분 이내, 핵심 관광 접근성\n# - 근접(0.3~0.7km): 도보 10분 이내\n# - 보통(0.7~1.0km): 도보 15분 이내\n# - 원거리(1.0~2.0km): 대중교통 필요\n# - 데이터 최대값 1.155km → bins 상한 2.0으로 전체 커버\n# - 실제 분포: 초근접 90.0%, 근접 9.7%, 보통 0.3%, 원거리 0.01%\ndf['poi_dist_category'] = pd.cut(\n    df['nearest_poi_dist_km'],\n    bins=[0, 0.3, 0.7, 1.0, 2.0],\n    labels=['초근접', '근접', '보통', '원거리'],\n    include_lowest=True\n)\nprint('\\n[8] poi_dist_category 분포 (POI 거리 범주):')\nprint(df['poi_dist_category'].value_counts().sort_index())\nprint(f'  초근접(300m 이내) 비율: {(df[\"poi_dist_category\"]==\"초근접\").mean():.2%}')\nprint(f'  nearest_poi_dist_km 범위: [{df[\"nearest_poi_dist_km\"].min():.3f}, {df[\"nearest_poi_dist_km\"].max():.3f}]km')\n\n# ─────────────────────────────────────────────\n# [플랫폼 관점] 자치구 수준 집계 파생 변수\n# ─────────────────────────────────────────────\n\n# (9) district_median_revpar: 자치구별 중위 RevPAR\n# - 평균 대신 중위값: 극단값(최대 830,186원) 영향 배제\n# - Dongjak-gu처럼 중위값=0인 자치구 존재(50% 이상 리스팅 RevPAR=0)\n# - 25개 자치구 커버\ndf['district_median_revpar'] = df.groupby('district')['ttm_revpar'].transform('median')\nprint('\\n[9] district_median_revpar (자치구별 중위 RevPAR, 내림차순):')\ndistrict_revpar = df.groupby('district')['district_median_revpar'].first().sort_values(ascending=False)\nprint(district_revpar.round(0).to_string())\nprint(f'  최고: {district_revpar.index[0]} ({district_revpar.iloc[0]:,.0f}원)')\nprint(f'  최저: {district_revpar.index[-1]} ({district_revpar.iloc[-1]:,.0f}원)')\n\n# (10) district_listing_count: 자치구별 리스팅 수 (공급량·경쟁 강도)\n# - 마포구 최다(6,699건), 금천구 최소(147건)\n# - 공급 과잉 자치구는 가격 경쟁 심화 → RevPAR 하락 압력\ndf['district_listing_count'] = df.groupby('district')['district'].transform('count')\nprint('\\n[10] district_listing_count (자치구별 리스팅 수, 내림차순):')\nprint(df.groupby('district')['district_listing_count'].first().sort_values(ascending=False).to_string())\n\n# (11) district_superhost_rate: 자치구별 슈퍼호스트 비율 (서비스 품질 수준)\n# - 범위: 0.268(동작구) ~ 0.598(강동구)\n# - 높은 자치구: 플랫폼 품질 관리 성과 지표\n# - 낮은 자치구: 슈퍼호스트 육성 프로그램 개입 우선순위\ndf['district_superhost_rate'] = df.groupby('district')['superhost'].transform('mean')\nprint('\\n[11] district_superhost_rate (자치구별 슈퍼호스트 비율, 내림차순):')\nprint(df.groupby('district')['district_superhost_rate'].first().sort_values(ascending=False).round(3).to_string())\n\n# (12) district_operating_rate: 자치구별 실제 운영 비율 (시장 활성도)\n# - 범위: 0.853(강남구) ~ 0.939(구로구)\n# - 낮은 자치구: 유휴 공급이 많아 시장 비효율 존재\n# - 플랫폼의 호스트 재활성화 정책 효과 측정에 활용\ndf['district_operating_rate'] = df.groupby('district')['operation_status'].transform(\n    lambda x: (x == 'Operating').mean()\n)\nprint('\\n[12] district_operating_rate (자치구별 Operating 비율, 내림차순):')\nprint(df.groupby('district')['district_operating_rate'].first().sort_values(ascending=False).round(3).to_string())\n\n# (13) district_entire_home_rate: 자치구별 독채 비율 (수요 유형 프로파일)\n# - 독채 비율 높음: 가족·단체 여행 수요 집중 → 단가·RevPAR 높은 경향\n# - 범위: 0.493(서대문구) ~ 0.929(도봉구)\n# - 플랫폼이 자치구별 수요 특성에 맞는 공급 전략 수립에 활용\ndf['district_entire_home_rate'] = df.groupby('district')['room_type'].transform(\n    lambda x: (x == 'entire_home').mean()\n)\nprint('\\n[13] district_entire_home_rate (자치구별 entire_home 비율, 내림차순):')\nprint(df.groupby('district')['district_entire_home_rate'].first().sort_values(ascending=False).round(3).to_string())\n\n# (14) revpar_vs_district_median: 지역 중위 대비 상대적 RevPAR 성과\n# - 1.0 초과: 지역 평균 이상 고성과 리스팅\n# - 1.0 미만: 지역 평균 이하 저성과 리스팅\n# - 동작구(중위값=0) 등에서 극단값 발생 → 99th percentile clip 적용\ndf['revpar_vs_district_median'] = df['ttm_revpar'] / (df['district_median_revpar'] + 1e-6)\nrvd_cap = df['revpar_vs_district_median'].quantile(0.99)\ndf['revpar_vs_district_median'] = df['revpar_vs_district_median'].clip(upper=rvd_cap)\nprint('\\n[14] revpar_vs_district_median (99th percentile clip 적용):')\nprint(df['revpar_vs_district_median'].describe().round(4))\nprint(f'  clip 상한값(99th pct): {rvd_cap:.2f}x')\nprint(f'  지역 중위 이상(>=1.0) 비율: {(df[\"revpar_vs_district_median\"] >= 1.0).mean():.2%}')\n\n# ─────────────────────────────────────────────\n# 최종 저장\n# ─────────────────────────────────────────────\n\n# 생성된 파생 변수 목록\nNEW_FEATURES = [\n    'revpar_trend',           # RevPAR 성장/하락 추세\n    'log_ttm_revpar',         # 로그 정규화 RevPAR (예측 타깃)\n    'is_active_operating',    # 실제 운영 여부 플래그\n    'revpar_percentile',      # 운영 리스팅 내 RevPAR 백분위\n    'price_efficiency',       # 가격 효율성 (단위 점유율 당 요금)\n    'photos_tier',            # 사진 수 4분위 범주\n    'review_rate',            # 투숙 대비 리뷰 비율\n    'poi_dist_category',      # POI 거리 범주 (입지 편의성)\n    'district_median_revpar', # 자치구별 중위 RevPAR\n    'district_listing_count', # 자치구별 공급량\n    'district_superhost_rate',# 자치구별 슈퍼호스트 비율\n    'district_operating_rate',# 자치구별 운영 비율\n    'district_entire_home_rate', # 자치구별 독채 비율\n    'revpar_vs_district_median', # 지역 대비 상대적 RevPAR\n]\n\nprint(f'\\n=== 최종 데이터셋 요약 ===')\nprint(f'생성된 파생 변수 수: {len(NEW_FEATURES)}개')\nprint(f'최종 컬럼 수: {df.shape[1]}개 (원본 42 + 파생 {len(NEW_FEATURES)})')\nprint(f'최종 데이터 크기: {df.shape}')\n\n# CSV 저장 (범주형 컬럼은 문자열로 변환, UTF-8 BOM으로 한글 호환)\ndf_save = df.copy()\nfor col in ['photos_tier', 'poi_dist_category']:\n    df_save[col] = df_save[col].astype(str)\n\ndf_save.to_csv(OUT_PATH, index=False, encoding='utf-8-sig')\nprint(f'\\n파생 변수 포함 데이터 저장 완료:')\nprint(f'  저장 경로: {OUT_PATH}')\nprint(f'  저장 크기: {df_save.shape}')\n\n# 파생 변수 타입별 최종 요약\nprint('\\n=== 파생 변수 최종 요약 ===')\nfor feat in NEW_FEATURES:\n    series = df[feat]\n    dtype = series.dtype\n    if dtype == 'bool':\n        print(f'  [{feat}] bool | True={series.sum():,}, False={len(series)-series.sum():,}')\n    elif dtype == 'object' or str(dtype) == 'category':\n        print(f'  [{feat}] category | 고유값={series.nunique()} | 결측={series.isna().sum()}')\n    else:\n        null_cnt = series.isna().sum()\n        print(f'  [{feat}] numeric | mean={series.mean():.4f} | std={series.std():.4f} | null={null_cnt:,}')\n"
+}

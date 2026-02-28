@@ -1,0 +1,116 @@
+{
+  "domain": "hospitality",
+  "domain_korean": "서울 에어비앤비",
+  "confidence": 99,
+  "source": "user_provided",
+  "web_research_summary": {
+    "sources_consulted": 0,
+    "key_findings": [
+      "사용자가 도메인을 직접 제공 — 서울 에어비앤비 숙박업",
+      "데이터 기간: 2024-10-01 ~ 2025-09-30 (12개월 TTM)",
+      "32,061개 리스팅, 42개 컬럼 (전처리 완료)",
+      "분석 목표: 호스트 관점(물건 단위) + 플랫폼 관점(자치구 단위) RevPAR 최적화",
+      "규제 이슈: 2025-10-16 사업자 등록 마감일"
+    ],
+    "industry_benchmarks": {
+      "RevPAR_median_KRW": "8868 (전체), 47850 (Active+Operating)",
+      "Occupancy_Rate": "0-1 스케일, 활성 숙소 기준 중위값 약 0.5",
+      "Superhost_Premium": "업계 기준 10-30% 프리미엄",
+      "POI_optimal_dist": "0.5-1.0km"
+    }
+  },
+  "domain_characteristics": {
+    "important_variables": [
+      {"name": "ttm_revpar", "importance": "critical", "reason": "12개월 수익률 지표 — 핵심 KPI"},
+      {"name": "l90d_revpar", "importance": "critical", "reason": "최근 90일 수익률 — 트렌드 파악"},
+      {"name": "district", "importance": "critical", "reason": "자치구별 수요/가격 편차 큼"},
+      {"name": "room_type", "importance": "high", "reason": "숙소 유형별 RevPAR 차이 큼"},
+      {"name": "superhost", "importance": "high", "reason": "슈퍼호스트 프리미엄 존재"},
+      {"name": "nearest_poi_dist_km", "importance": "high", "reason": "관광지 거리 → 수요 영향"},
+      {"name": "ttm_occupancy", "importance": "high", "reason": "점유율 → RevPAR 구성 요소"},
+      {"name": "ttm_avg_rate", "importance": "high", "reason": "일평균 가격 → RevPAR 구성 요소"},
+      {"name": "operation_status", "importance": "medium", "reason": "영업 여부 — 분석 필터링"},
+      {"name": "refined_status", "importance": "medium", "reason": "활성/휴면 상태 분류"}
+    ],
+    "seasonality": "분기별 패턴 존재 (봄/가을 성수기, 여름 중간, 겨울 비수기)",
+    "geographic_effects": true,
+    "time_dependency": "TTM vs L90D 비교로 최근 트렌드 파악"
+  },
+  "domain_kpis": [
+    {
+      "name": "RevPAR",
+      "formula": "ADR × Occupancy_Rate (또는 Total_Revenue / Available_Nights)",
+      "industry_benchmark": "활성+영업 숙소 중위값 ₩47,850",
+      "calculable_with_current_data": true,
+      "required_columns": ["ttm_revpar", "l90d_revpar"]
+    },
+    {
+      "name": "ADR (Average Daily Rate)",
+      "formula": "Total_Revenue / Occupied_Nights",
+      "industry_benchmark": "전체 중위값 ₩80,000~₩120,000",
+      "calculable_with_current_data": true,
+      "required_columns": ["ttm_avg_rate", "l90d_avg_rate"]
+    },
+    {
+      "name": "Occupancy Rate",
+      "formula": "Occupied_Nights / Available_Nights (0-1 스케일)",
+      "industry_benchmark": "활성 숙소 0.4~0.7",
+      "calculable_with_current_data": true,
+      "required_columns": ["ttm_occupancy", "l90d_occupancy"]
+    },
+    {
+      "name": "RevPAR Trend",
+      "formula": "(l90d_revpar - ttm_revpar/4) / (ttm_revpar/4 + 1)",
+      "industry_benchmark": "양수 = 성장 추세",
+      "calculable_with_current_data": true,
+      "required_columns": ["ttm_revpar", "l90d_revpar"]
+    }
+  ],
+  "domain_warnings": [
+    "ttm_revpar 중위값=₩8,868 이지만 활성+영업 숙소만 필터링하면 ₩47,850 — 전체 분포와 활성 분포 모두 분석 필요",
+    "50%+ 리스팅이 ttm_revpar=0 (Dormant/Ghost) — 이를 분석에 포함할지 명확히 해야 함",
+    "ttm_occupancy는 0-1 스케일 (0-100% 아님)",
+    "좌표는 프라이버시 마스킹됨 — 자치구 단위 분석은 district 컬럼 사용",
+    "exng, ttm_exng는 상수 컬럼 — 분석에서 제외 권장",
+    "2025-10-16 규제 마감일 — operation_status 영향 큼",
+    "listing_type 카디널리티=94 (고카디널리티) — room_type(4개) 사용 권장"
+  ],
+  "preprocessing_guide": {
+    "note": "전처리 완료 (_final.ipynb 실행됨) — 추가 전처리 불필요",
+    "completed_steps": [
+      "district 결측치 → Spatial Join으로 채움",
+      "이상치 제거: min_nights>730, ttm_avg_rate>2M",
+      "외부 데이터 병합: POI, 환율, 인구",
+      "파생변수 생성: refined_status, operation_status, baths_group 등"
+    ],
+    "analysis_recommendations": [
+      "RevPAR=0인 Dormant 숙소 포함하여 전체 분포 분석",
+      "활성+영업(Active+Operating) 서브셋으로 별도 심층 분석",
+      "ttm_revpar과 l90d_revpar 둘 다 분석",
+      "nearest_poi_image 컬럼 제외 (23.9% 결측, 분석 불필요)",
+      "exng, ttm_exng 컬럼 제외 (상수값)"
+    ],
+    "missing_value_rules": [],
+    "outlier_rules": [
+      {
+        "column_pattern": "ttm_revpar",
+        "domain_meaning": "상위 극단값은 프리미엄 숙소 — 세그먼트 분석",
+        "recommended_action": "keep_and_analyze_separately",
+        "cap_percentile": 99.5,
+        "reason": "고가 숙소는 별도 분석 가치 있음"
+      }
+    ],
+    "transformation_rules": [
+      {
+        "column_pattern": "ttm_revpar",
+        "recommended_transform": "log1p",
+        "reason": "우편향 분포 (skewness=3.76)"
+      },
+      {
+        "column_pattern": "district",
+        "recommended_encoding": "target_encoding or groupby_stats",
+        "reason": "25개 자치구 — target encoding 또는 집계 통계"
+      }
+    ]
+  }
+}

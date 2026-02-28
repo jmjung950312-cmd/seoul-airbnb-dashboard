@@ -1,0 +1,248 @@
+{
+  "notebook": "notebooks/07_cluster_modeling.ipynb",
+  "review_date": "2026-02-24",
+  "reviewer": "model-review-agent (3-agent pipeline)",
+  "overall_verdict": "REJECTED",
+  "summary": "Notebook 07 implements a cluster-aware dual-target LightGBM modeling pipeline with several well-designed components (LEAKAGE_COLS definition, KFold CV structure, log1p target transforms, AppleGothic font setup, SHAP planner). However, it suffers a critical runtime crash in Cell 6: LightGBM throws ValueError because five ordinal/categorical columns (bedrooms_group, baths_group, guests_group, photos_tier, poi_dist_category) remain as object dtype and are passed without encoding. This cascades into zero model outputs, zero SHAP analysis, and zero evaluation metrics. Beyond the crash: no prediction range assertion, no DummyRegressor baseline, no MAPE, occupancy inverse returns %-scale not fraction, SHAP waterfall cases sourced from full cluster (including training rows), and six host consultation sections are missing or partial.",
+
+  "checklist": [
+    {
+      "id": 1,
+      "item": "Train/Test Split Order",
+      "status": "WARN",
+      "evidence": "Cell 4: `X = df_cluster[FEATURE_COLS].copy()` then `X = X.fillna(X.median())` applied to the FULL cluster dataset before split. Cell 5: `X_tr, X_te, yr_tr, yr_te = train_test_split(X, y_revpar, test_size=0.2, random_state=RANDOM_SEED)`.",
+      "cell_number": 4,
+      "notes": "train_test_split is called before model.fit() — correct. However, X.fillna(X.median()) in Cell 4 uses the full pre-split matrix, so test-set median values contaminate imputation. Fix: compute X_tr.median() after splitting and apply to both train and test."
+    },
+    {
+      "id": 2,
+      "item": "Data Leakage",
+      "status": "PASS",
+      "evidence": "Cell 1 LEAKAGE_COLS = ['ttm_avg_rate', 'ttm_revenue', 'ttm_occupancy', 'l90d_revpar', 'l90d_occupancy', 'l90d_avg_rate', 'l90d_revenue', 'revpar_vs_district_median', 'revpar_trend', 'log_ttm_revpar', 'price_efficiency', 'revpar_percentile', 'exng', 'ttm_exng', 'nearest_poi_image']. FEATURE_COLS intersection with LEAKAGE_COLS is empty.",
+      "cell_number": 1,
+      "notes": "All CRITICAL/HIGH/MEDIUM leakage columns from CLAUDE.md are correctly excluded. Five district-level aggregate features are added beyond the CLAUDE.md host-perspective list but are non-target-derived and in leakage_audit.features_confirmed_safe. When Cluster 0 = Mapo-gu only, these features are constant (zero variance) — no leakage but no signal either."
+    },
+    {
+      "id": 3,
+      "item": "Log Transform",
+      "status": "WARN",
+      "evidence": "Cell 4: `y_revpar = np.log1p(df_cluster['ttm_revpar'])` and `y_occupancy = np.log1p(df_cluster['ttm_occupancy'] * 100)`. Cell 6 eval: `mae = mean_absolute_error(np.expm1(y_te), np.expm1(test_preds))` applied uniformly via shared train_lgbm_cv.",
+      "cell_number": 4,
+      "notes": "log1p / expm1 correctly applied. Occupancy is scaled *100 before log1p, so expm1 yields %-points not fraction. Downstream preds_occupancy is returned in log-space without documentation — any caller using np.expm1(preds_occupancy) gets % values, not [0,1] proportion. No /100 applied before returning. See Code Error 1a."
+    },
+    {
+      "id": 4,
+      "item": "Evaluation Metrics",
+      "status": "FAIL",
+      "evidence": "Cell 6 train_lgbm_cv reports OOF R², Test R², Test MAE, RMSE. MAPE absent. DummyRegressor absent. Cell 6 crashes with ValueError before any model is trained — no evaluation metrics are produced at runtime.",
+      "cell_number": 6,
+      "notes": "MAPE is listed as a required secondary metric in CLAUDE.md. DummyRegressor(strategy='median') baseline is required per Modeling Standards. Both are absent structurally. Additionally, Cell 6 terminates before producing any output due to the object-dtype crash."
+    },
+    {
+      "id": 5,
+      "item": "SHAP Analysis",
+      "status": "FAIL",
+      "evidence": "Cell 7: `explainer_r = shap.TreeExplainer(model_revpar)` — beeswarm + bar planned. Cell 8: occupancy SHAP. Cell 10: waterfall for 3 cases (low/mid/high RevPAR). All cells have zero outputs due to Cell 6 crash.",
+      "cell_number": 7,
+      "notes": "SHAP architecture is correctly designed (TreeExplainer on X_te_sample, beeswarm, bar, waterfall). IF Cell 6 fixed, cells 7-8 would PASS. However, Cell 10 waterfall selects cases from df_cluster (full cluster, includes training rows) not X_te — see Code Error 2a."
+    },
+    {
+      "id": 6,
+      "item": "Font Setup",
+      "status": "PASS",
+      "evidence": "Cell 2: `plt.rcParams['font.family'] = 'AppleGothic'` and `plt.rcParams['axes.unicode_minus'] = False` — both set globally before any visualization code.",
+      "cell_number": 2,
+      "notes": "Fully compliant with CLAUDE.md visualization standards. No cell resets rcParams. Bare `import matplotlib` in Cell 2 is unused but harmless."
+    },
+    {
+      "id": 7,
+      "item": "Cross-Validation",
+      "status": "WARN",
+      "evidence": "Cell 5: `kf = KFold(n_splits=5, shuffle=True, random_state=RANDOM_SEED)` (RANDOM_SEED=42). OOF R² and per-fold mean/std reported. DummyRegressor: not present.",
+      "cell_number": 5,
+      "notes": "KFold exactly matches CLAUDE.md spec. OOF assignment inside loop is correct. DummyRegressor(strategy='median') baseline is missing — cannot quantify lift over naive median prediction."
+    },
+    {
+      "id": 8,
+      "item": "Domain KPI Validity",
+      "status": "WARN",
+      "evidence": "FEATURE_COLS excludes ttm_occupancy, ttm_avg_rate, ttm_revenue. Adds 5 district aggregates (district_listing_count, district_superhost_rate, district_operating_rate, district_entire_home_rate, ttm_pop) not in CLAUDE.md approved host-perspective list.",
+      "cell_number": 1,
+      "notes": "RevPAR components correctly excluded. Extra district features are non-target-derived but undocumented and constant within single-district clusters (zero variance = zero contribution to model)."
+    },
+    {
+      "id": 9,
+      "item": "Group Analysis Integrity",
+      "status": "WARN",
+      "evidence": "Cell 3: cluster_stats shows n_listings per cluster (min 1,905). No minimum sample guard before model training. Cell 4: `assert df_cluster['cluster'].nunique() == 1` checks purity but not size.",
+      "cell_number": 3,
+      "notes": "All current clusters are large enough. No automated guard exists for edge cases. Recommend: `assert len(df_cluster) >= 100, f'Cluster has only {len(df_cluster)} samples'`."
+    },
+    {
+      "id": 10,
+      "item": "Business Logic Validation",
+      "status": "FAIL",
+      "evidence": "No cell contains `assert (y_pred >= 0).all()` or `assert (y_pred <= 2_000_000).all()` or any equivalent. Only assert in notebook: Cell 4 `assert df_cluster['cluster'].nunique() == 1` (cluster purity only).",
+      "cell_number": -1,
+      "notes": "CLAUDE.md explicitly requires this assertion. Even if Cell 6 succeeded, expm1-inverted predictions would be unvalidated. Must be added after preds_revpar is inverse-transformed."
+    }
+  ],
+
+  "critical_failures": [
+    "[CRASH] Cell 6 — ValueError: pandas dtypes must be int, float or bool. Fields: bedrooms_group, baths_group, guests_group, photos_tier, poi_dist_category (all object dtype). No model is trained, no evaluation metrics produced. All SHAP cells (7, 8, 10) have zero outputs.",
+    "[MISSING ASSERT] Item 10 — No prediction range assertion (y_pred >= 0 and y_pred <= 2_000_000) anywhere in the notebook.",
+    "[CODE ERROR] Cell 6 — preds_occupancy returned in log1p(occ*100) space. Callers using np.expm1(preds_occupancy) receive %-scale values (0-100), not [0,1] fraction. No /100 applied before return.",
+    "[CODE ERROR] Cell 10 — SHAP waterfall selects case rows from df_cluster (full 3,270 rows, includes training data). Indices idx_low/idx_mid/idx_high are not constrained to X_te.index, so training-set rows are used for test-evaluation case studies."
+  ],
+
+  "warnings": [
+    "Item 1 — X.fillna(X.median()) applied pre-split: test-set values contaminate imputation statistics.",
+    "Item 3 — Occupancy expm1 inverse yields %-points not fraction; undocumented in function.",
+    "Item 7 — DummyRegressor(strategy='median') baseline absent; model lift unquantifiable.",
+    "Item 8 — 5 district-aggregate features beyond CLAUDE.md approved list; constant within single-district clusters.",
+    "Item 9 — No minimum cluster size guard before model training.",
+    "Cell 4 — No NaN assertion after fillna: if a column is entirely NaN, fillna(NaN) is a no-op and NaN silently enters the model.",
+    "Cell 10 — figsize=(18,6) exceeds project standard figsize_max=(14,8).",
+    "Cell 10 — f-string missing `f` prefix: print('저장: ...{host_cluster}...') prints literal {host_cluster}, not the variable value."
+  ],
+
+  "host_consultation_gap_analysis": {
+    "summary": "6 host consultation sections evaluated. 2 PARTIAL, 4 MISSING.",
+    "sections": [
+      {
+        "id": 1,
+        "section": "Predicted RevPAR position vs. district median",
+        "status": "MISSING",
+        "existing_cell": null,
+        "gap": "No per-listing percentile output. cluster_stats in Cell 3 shows only aggregate medians. preds_revpar is never used to place a host's listing against cluster distribution.",
+        "insert_after_cell": 11
+      },
+      {
+        "id": 2,
+        "section": "Quantified lever effects (KRW impact per change)",
+        "status": "PARTIAL",
+        "existing_cell": 9,
+        "gap": "Cell 9 print_action_guide outputs mean |SHAP| in log1p(RevPAR) unitless space. No conversion to KRW delta. A host cannot interpret 'SHAP=0.35' as a monetary impact.",
+        "insert_after_cell": 9
+      },
+      {
+        "id": 3,
+        "section": "Implementation roadmap (0-30 / 1-3 mo / 3-12 mo)",
+        "status": "MISSING",
+        "existing_cell": null,
+        "gap": "Cell 9 action_map has text prescriptions per feature but no time-horizon classification. Host cannot distinguish instant_book (30-second toggle) from superhost (multi-month journey).",
+        "insert_after_cell": 9
+      },
+      {
+        "id": 4,
+        "section": "Cross-cluster comparison table",
+        "status": "PARTIAL",
+        "existing_cell": 3,
+        "gap": "Cell 3 shows outcome stats only (n, median_revpar, median_occupancy). No SHAP driver comparison across all 4 clusters simultaneously. Cell 11 comment tells user to re-run notebook for each cluster manually.",
+        "insert_after_cell": 3
+      },
+      {
+        "id": 5,
+        "section": "Confidence / uncertainty ranges",
+        "status": "MISSING",
+        "existing_cell": null,
+        "gap": "Cell 6 reports fold R² std (model stability metric) but never surfaces per-listing prediction intervals. A host shown a predicted RevPAR has no range estimate.",
+        "insert_after_cell": 6
+      },
+      {
+        "id": 6,
+        "section": "What-if simulation cell",
+        "status": "MISSING",
+        "existing_cell": null,
+        "gap": "No cell allows changing individual feature values and observing predicted RevPAR response. HOST_DISTRICT variable only re-routes the entire pipeline to a different cluster.",
+        "insert_after_cell": 11
+      }
+    ]
+  },
+
+  "code_errors": [
+    {
+      "id": "1a",
+      "severity": "HIGH",
+      "cell": 6,
+      "item": "Occupancy inverse: missing /100",
+      "code": "return final, test_preds  # test_preds is in log1p(occ*100) space",
+      "problem": "np.expm1(preds_occupancy) yields [0,100] range not [0,1]. No /100 applied before return. Callers have no documentation that the contract is %-points.",
+      "fix": "return final, np.expm1(test_preds) / 100  # returns [0,1] occupancy"
+    },
+    {
+      "id": "1b",
+      "severity": "MEDIUM",
+      "cell": 6,
+      "item": "No np.clip on occupancy after inverse transform",
+      "code": "mae = mean_absolute_error(np.expm1(y_te), np.expm1(test_preds))",
+      "problem": "expm1 of a negative log prediction yields values in (-1, 0). No clip to [0, 100] (or [0, 1]) applied.",
+      "fix": "occ_pred = np.clip(np.expm1(test_preds) / 100, 0.0, 1.0)"
+    },
+    {
+      "id": "2a",
+      "severity": "HIGH",
+      "cell": 10,
+      "item": "SHAP waterfall uses full df_cluster (includes training rows)",
+      "code": "revpar_sorted = df_cluster['ttm_revpar'].sort_values()\nidx_low  = revpar_sorted.index[int(n * 0.10)]\n...\nrow = X.loc[[idx]]",
+      "problem": "idx_low/idx_mid/idx_high are not constrained to X_te.index. Training-set rows are used as waterfall case studies, inflating apparent explanatory quality.",
+      "fix": "revpar_te = df_cluster.loc[X_te.index, 'ttm_revpar'].sort_values()\nidx_low = revpar_te.index[int(len(revpar_te) * 0.10)]\n...\nrow = X_te.loc[[idx]]"
+    },
+    {
+      "id": "3",
+      "severity": "LOW",
+      "cell": 4,
+      "item": "No NaN assertion after fillna",
+      "code": "X = X.fillna(X.median())",
+      "problem": "If a column is entirely NaN in the cluster subset, X.median() for that column is NaN. fillna(NaN) is a no-op. NaN silently enters the model.",
+      "fix": "X = X.fillna(X.median())\nassert X.isnull().sum().sum() == 0, f'NaN remains: {X.isnull().sum()[X.isnull().sum()>0]}'"
+    },
+    {
+      "id": "4",
+      "severity": "LOW",
+      "cell": 10,
+      "item": "f-string missing f prefix",
+      "code": "print(\"저장: ../reports/fig_07_revpar_shap_waterfall_c{host_cluster}.png\")",
+      "problem": "Missing `f` prefix — {host_cluster} is printed literally as a string, not interpolated.",
+      "fix": "print(f\"저장: ../reports/fig_07_revpar_shap_waterfall_c{host_cluster}.png\")"
+    },
+    {
+      "id": "5",
+      "severity": "LOW",
+      "cell": 10,
+      "item": "figsize exceeds project standard",
+      "code": "fig, axes = plt.subplots(1, 3, figsize=(18, 6))",
+      "problem": "CLAUDE.md specifies figsize_max=(14,8). Width 18 > 14.",
+      "fix": "fig, axes = plt.subplots(1, 3, figsize=(14, 5))"
+    }
+  ],
+
+  "code_checks_passed": [
+    "Font: rcParams['font.family']='AppleGothic' and axes.unicode_minus=False set globally in Cell 2, before all viz cells.",
+    "Feature column alignment: get_dummies applied to full df_ao before cluster filter; explicit fill loop with print for missing columns.",
+    "Random seed: all models and KFold use random_state=RANDOM_SEED (42).",
+    "SHAP beeswarm/bar (Cells 7, 8): correctly sample from X_te with random_state=RANDOM_SEED.",
+    "SHAP size cap: min(500, len(X_te)) — no full-dataset SHAP.",
+    "Data leakage: LEAKAGE_COLS comprehensive and disjoint from FEATURE_COLS."
+  ],
+
+  "recommendations": [
+    "[CRITICAL — FIX FIRST] Cell 4/6: Encode object-dtype features before LightGBM. Use pd.Categorical().codes or LabelEncoder for bedrooms_group, baths_group, guests_group, photos_tier, poi_dist_category. Without this fix the entire pipeline cannot execute.",
+    "[CRITICAL] Cell 6: Add prediction range assertion after expm1 inverse: `preds_orig = np.expm1(preds_revpar); assert (preds_orig >= 0).all() and (preds_orig <= 2_000_000).all()`.",
+    "[CRITICAL] Cell 6: Fix occupancy return: `return final, np.expm1(test_preds) / 100` (not raw log-space).",
+    "[CRITICAL] Cell 10: Restrict SHAP waterfall case selection to X_te.index only.",
+    "[REQUIRED] Cell 6: Add DummyRegressor(strategy='median') baseline with 5-Fold CV; include its R²/MAE/RMSE in comparison table.",
+    "[REQUIRED] Cell 6: Add MAPE to train_lgbm_cv reporting: `mape = np.mean(np.abs((np.expm1(y_te) - np.expm1(test_preds)) / (np.expm1(y_te) + 1))) * 100`.",
+    "[REQUIRED] After Cell 11: Add KRW lever effects cell (convert SHAP from log-space to ₩ delta per feature change).",
+    "[REQUIRED] After Cell 11: Add implementation roadmap cell (quick-win / medium / strategic tiers).",
+    "[REQUIRED] After Cell 11: Add what-if simulation cell (modify individual features, see predicted RevPAR response).",
+    "[REQUIRED] After Cell 11: Add per-host RevPAR percentile position cell.",
+    "[RECOMMENDED] After Cell 6: Add quantile LightGBM (q10/q90) for per-listing prediction intervals.",
+    "[RECOMMENDED] After Cell 3: Add cross-cluster SHAP driver comparison (train all 4 cluster models, heatmap of top-N features).",
+    "[RECOMMENDED] Cell 4: Move fillna to after train_test_split; compute median from X_tr only.",
+    "[RECOMMENDED] Cell 4: Add `assert len(df_cluster) >= 100` minimum cluster size guard.",
+    "[RECOMMENDED] Cell 4: Add `assert X.isnull().sum().sum() == 0` after fillna.",
+    "[MINOR] Cell 10: Fix f-string missing `f` prefix on savefig print.",
+    "[MINOR] Cell 10: Reduce figsize from (18,6) to (14,5) to comply with project standard."
+  ]
+}

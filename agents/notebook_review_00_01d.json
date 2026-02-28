@@ -1,0 +1,120 @@
+{
+  "review_date": "2026-02-20",
+  "reviewer": "Senior Data Science Domain Expert (Claude Sonnet 4.6)",
+  "notebooks_reviewed": [
+    "00_quick_eda.ipynb",
+    "01_host_eda.ipynb",
+    "01b_host_eda_deep.ipynb",
+    "01c_occupancy_eda.ipynb",
+    "01d_host_crossanalysis.ipynb"
+  ],
+  "hypothesis_coverage": {
+    "H1": {
+      "covered": true,
+      "notebook": "01_host_eda + 01b_host_eda_deep",
+      "key_finding": "슈퍼호스트 중위 RevPAR 61205 vs 일반 31825 (+83.1%). 슈퍼호스트+즉시예약 조합이 4개 조합 중 최고 RevPAR. 슈퍼호스트 지위가 revpar_trend 성장 그룹에서도 더 높은 비율(62.54% vs 44.23%). XE 분석에서 리뷰 수가 많은 일반 호스트(61-150개)가 리뷰 적은 슈퍼호스트를 RevPAR에서 능가할 수 있음을 발견.",
+      "visualization_quality": "good",
+      "gap": "슈퍼호스트 획득 시점별 RevPAR 변화 추이(패널 효과) 미분석. 슈퍼호스트 자격 취득 후 실제 RevPAR 개선 속도 데이터 부재."
+    },
+    "H2": {
+      "covered": true,
+      "notebook": "01_host_eda + 01b_host_eda_deep",
+      "key_finding": "entire_home 중위 RevPAR 58944, ADR 114315, 점유율 0.559. private_room 21791, ADR 62472, 점유율 0.348. hotel_room(n=32)이 점유율 0.566으로 RevPAR 67037 기록하며 entire_home 상회. 01b-A 4분면: 고가-고점유 RevPAR 108093 > 저가-고점유 48358 > 고가-저점유 46277 > 저가-저점유 16609.",
+      "visualization_quality": "good",
+      "gap": "hotel_room(n=32)과 shared_room(n=166)이 소표본으로 결론 불안정. room_type별 RevPAR의 자치구 분포 bias 미보정."
+    },
+    "H3": {
+      "covered": true,
+      "notebook": "01_host_eda + 01b_host_eda_deep + 01d_host_crossanalysis",
+      "key_finding": "사진 수 Spearman rho=0.395(RevPAR), 평점 rho=0.388(RevPAR). 사진 21-35장 최적 구간. 평점 4.85-4.95에서 점유율 최고(Perfectionism Paradox). 01d XA: photos-rating 상호독립(rho=0.285), 두 효과가 additive.",
+      "visualization_quality": "good",
+      "gap": "photos_count 200장 구간 분석이 01 노트북 내 중복 삽입되어 구조 혼재. 평점 분포 left-censored 특성에 대한 통계적 주석 부족."
+    },
+    "H4": {
+      "covered": true,
+      "notebook": "01_host_eda + 01c_occupancy_eda + 01d_host_crossanalysis",
+      "key_finding": "RevPAR 최적: 3박(58540), 2박(53969). 점유율 최적: 4-7박(중위 0.597). 두 최적점 불일치를 01c에서 명시 검증. XD에서 instant_book x min_nights 추가 교차 분석.",
+      "visualization_quality": "good",
+      "gap": "RevPAR 최적(2-3박)과 점유율 최적(4-7박) 불일치의 인과 메커니즘 설명 부족. 30박+ 장기 임대 시장 분석 공백."
+    },
+    "H5": {
+      "covered": true,
+      "notebook": "01_host_eda + 01b_host_eda_deep + 01d_host_crossanalysis",
+      "key_finding": "01b-H: 추가요금 5천-3만원 구간 RevPAR 최적. 01d XF: 7인+ 그룹에서 추가요금 있음이 오히려 RevPAR 감소(113264 -> 49860, -56%). 대형 숙소에서 추가요금 부과는 점유율 억제로 RevPAR 감소 위험 확인.",
+      "visualization_quality": "ok",
+      "gap": "H5 원가설 반전 결과가 최종 요약에서 정리되지 않고 단순히 추가요금 활성화 유리로만 기술되어 호스트 오판 위험. 대형 숙소 추가요금 역효과 명시 필요."
+    },
+    "H6": {
+      "covered": "partial",
+      "notebook": "00_quick_eda (부분적)",
+      "key_finding": "00_quick_eda에서 자치구별 리스팅 수와 RevPAR를 독립 차트로만 제시. 마포구가 공급 1위이면서 RevPAR 1위(63365)로 H6에 반하는 패턴 존재. 그러나 상관관계 통계 검증 미실시.",
+      "visualization_quality": "ok",
+      "gap": "공급집중도(HHI 또는 공급비중)와 RevPAR의 산포도 및 상관계수 분석 완전 누락. 플랫폼 노트북(05)으로 이관 예정이더라도 00에서 탐색 필요."
+    },
+    "H7": {
+      "covered": true,
+      "notebook": "01_host_eda + 01b_host_eda_deep",
+      "key_finding": "01b-D: POI 유형별 RevPAR — 여행코스 최고, 레포츠 최저. POI 유형이 거리보다 RevPAR에 더 중요한 변수. POI유형 x 거리 교차 분석 포함.",
+      "visualization_quality": "good",
+      "gap": "POI 거리 세밀 분석 셀(100m 단위, 50m 단위)이 01 노트북에 중복 삽입되어 구조 혼재. nearest_poi_addr 결측치(194건) 처리 방식 미언급."
+    },
+    "H8": {
+      "covered": false,
+      "notebook": "미검증",
+      "key_finding": "검토 대상 5개 노트북 어디에도 자치구별 인구 데이터 vs RevPAR 관계 분석 없음.",
+      "visualization_quality": "missing",
+      "gap": "H8은 플랫폼 관점 가설로 04/05 노트북에서 다뤄야 하나 현재 미검증. 인구 밀도와 RevPAR 양의 관계 검증 누락. 00_quick_eda에서 최소 탐색 권고."
+    },
+    "H9": {
+      "covered": "partial",
+      "notebook": "00_quick_eda (부분적)",
+      "key_finding": "00_quick_eda에서 Dormant 54.3% 및 operation_status별 RevPAR 막대 차트 제공. 그러나 자치구별 dormant_ratio vs Active RevPAR 역관계 직접 검증 미실시.",
+      "visualization_quality": "ok",
+      "gap": "자치구 단위 dormant_ratio와 Active RevPAR의 산포도 또는 회귀 분석 없음. 플랫폼 분석 노트북(05, 06)으로 이관 예정이더라도 00에서 탐색 필요."
+    }
+  },
+  "overall_findings": {
+    "what_is_well_done": [
+      "분석 체계가 호스트 관점(H1-H5)을 단계적으로 심화시키는 구조(01 -> 01b -> 01c -> 01d)로 잘 설계. 각 노트북이 기존 분석과의 차이를 명시해 중복 방지 의도 명확.",
+      "01c_occupancy_eda의 RevPAR 분산 분해(점유율 기여 58.2% > ADR 37.5%)와 ADR-점유율 무상관(r=0.009) 발견은 가격 인하로 점유율 확보 전략의 비효율성을 실증 데이터로 반증한 수작.",
+      "01c의 Perfectionism Paradox(평점 4.85-4.95 최적, 5.0 오히려 점유율 하락) 발견은 운영 실무에 즉시 활용 가능한 반직관적 인사이트.",
+      "01d XH의 Top 10% 달성자 조건 충족 수별 달성 확률 수량화(0조건 0.14% -> 5조건 26.3%)가 호스트 액션 가이드로서 비즈니스 명확성 높음.",
+      "데이터 누수 방지 철저 — leakage 컬럼 참고 사용 시 명시적 경고 표기.",
+      "01b-G 고저성과 프로필 비교(슈퍼호스트 78.1% vs 31.8%, 중위 리뷰 65 vs 12, 중위 사진 38 vs 19)가 요약 테이블로 잘 정리.",
+      "전역 상수를 노트북 상단에 중앙화하고 reports/ 폴더에 JSON 요약 저장하는 패턴이 일관성 있음."
+    ],
+    "critical_gaps": [
+      "H5 반전 결과 미정리: 7인+ 대형 그룹에 추가요금 부과 시 RevPAR가 오히려 하락(113264 -> 49860, -56%)하는 핵심 반전 결과가 요약에서 추가요금 활성화 유리로만 기술되어 호스트 오판 위험.",
+      "H6, H8, H9 플랫폼 가설이 현재 검토 노트북 어디에도 실질적으로 검증되지 않음.",
+      "01d 최종 요약 테이블(cell 19)에서 XA~XH 핵심 발견란이 모두 ___(미기입) 상태로 저장되어 문서 가치 훼손.",
+      "점유율 모멘텀(55.5% 하락)과 RevPAR 트렌드(92.8% 성장)의 극단적 불일치에 대한 도메인 해석 없음 — 측정 아티팩트 가능성 검토 필요.",
+      "hotel_room(n=32)과 shared_room(n=166) 소표본 분석 결과를 일반화하는 시각화에 통계적 신뢰구간 또는 표본 크기 경고 미표시."
+    ],
+    "visualization_issues": [
+      "01 노트북에 POI 거리 분석 셀이 100m 단위와 50m 단위로 중복 삽입 — 01b-D로 통합 또는 하나 삭제 필요.",
+      "01d cell 19 요약 테이블이 코드 실행 후에도 수작업 미기입 상태로 유지 — 자동 채움 구조 또는 수작업 업데이트 필요.",
+      "바이올린 플롯(H1, H2)의 y축 상한 고정(300k/200k)으로 극단 outlier 완전 가려짐 — 로그 스케일 버전 또는 outlier 비율 주석 권고.",
+      "01c의 평점 구간별 분석에서 4.95-5.0 구간 출력이 잘려 최종 숫자 검증 불가."
+    ],
+    "missing_business_insights": [
+      "슈퍼호스트 되는 방법 액션 플로우 부재: 자격 조건과 일반 호스트 중 전환 잠재군 규모 추정 없음.",
+      "리뷰 수 임계값 수량화 미완성: 리뷰 몇 개 이상이면 슈퍼호스트 없이 경쟁력 있는지 구체적 수치 미제시.",
+      "계절성/시간적 효과 미검토: TTM 12개월 데이터 내 월별/분기별 RevPAR 변동 미탐색.",
+      "신규 호스트 진입 전략 부재: 리뷰 1-5건 그룹의 RevPAR(14232)가 100+건(76152)의 18.7% 수준인데 초기 리뷰 축적 전략 가이드 없음.",
+      "마포구 공급 집중 임계점 경고 부재: 공급 1위이면서 RevPAR 1위인 현재 상황이 지속 가능한지 수요-공급 균형 관점 분석 없음.",
+      "비수익 리스팅(RevPAR=0 구간, 전체 37.1%) 진단 분석 없음 — 단순 Dormant인지 가격 설정 오류인지 미구분."
+    ]
+  },
+  "recommendations_for_final_notebook": [
+    "H5 결론 수정 필수: 추가요금 정책 활성화 유리라는 단순 결론을 소형(1-6인) 숙소는 효과 없거나 미미, 대형(7인+) 숙소는 오히려 RevPAR 감소 위험으로 수정. 추가요금 5천-3만원 범위에서만 제한적 효과 명시.",
+    "01d cell 19 요약 테이블 완성: XA~XH 코드 실행 출력에서 핵심 발견을 추출하여 markdown 테이블에 기입.",
+    "점유율 모멘텀(55.5% 하락) vs RevPAR 트렌드(92.8% 성장) 불일치를 별도 셀에서 명시적으로 해석. l90d_revpar 계산 기준 차이가 아티팩트를 만드는지 확인.",
+    "호스트 액션 매트릭스 추가: 5개 핵심 레버(슈퍼호스트, 사진 21-35장, 리뷰 60개+, entire_home, min_nights 2-3박)를 RevPAR 상승 효과와 실행 난이도로 표 정리.",
+    "hotel_room, shared_room 소표본 분석 결과에 n<200 경고 주석 및 95% 신뢰구간 표시 추가.",
+    "01 노트북에서 중복된 POI 거리 분석 셀(100m 단위, 50m 단위) 중 하나 삭제 또는 01b-D로 통합.",
+    "자치구별 dormant_ratio vs Active RevPAR 산포도를 00_quick_eda에 추가하여 H9 탐색적 검증.",
+    "ADR 구간별 점유율 분포에서 저가(<5만) 그룹의 점유율(0.414)이 중가(8-12만)보다 낮은 반직관적 패턴에 도메인 해석 추가.",
+    "01d의 FutureWarning(DataFrameGroupBy.apply) 수정: include_groups=False 파라미터 적용 또는 pandas 버전 명시.",
+    "Top 10% 달성 조건 충족 수 분석(01d XH) 결과를 호스트 대상 실행 로드맵으로 정리: 현재 0조건에서 1조건씩 추가할 때마다 예상 RevPAR 개선폭 수치 제시."
+  ]
+}

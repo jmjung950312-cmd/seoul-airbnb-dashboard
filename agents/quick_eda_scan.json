@@ -1,0 +1,776 @@
+{
+  "shape": [
+    32061,
+    42
+  ],
+  "columns": [
+    "baths",
+    "bedrooms",
+    "beds",
+    "district",
+    "extra_guest_fee",
+    "guests",
+    "instant_book",
+    "l90d_avg_rate",
+    "l90d_occupancy",
+    "l90d_revenue",
+    "l90d_revpar",
+    "l90_pop",
+    "listing_type",
+    "min_nights",
+    "num_reviews",
+    "photos_count",
+    "rating_overall",
+    "room_type",
+    "superhost",
+    "ttm_avg_rate",
+    "ttm_occupancy",
+    "ttm_revenue",
+    "ttm_revpar",
+    "ttm_pop",
+    "latitude_masked",
+    "longitude_masked",
+    "refined_status",
+    "baths_group",
+    "bedrooms_group",
+    "guests_group",
+    "extra_guest_fee_policy",
+    "operation_status",
+    "nearest_poi_name",
+    "nearest_poi_addr",
+    "nearest_poi_type",
+    "nearest_poi_type_name",
+    "nearest_poi_lat",
+    "nearest_poi_lng",
+    "nearest_poi_image",
+    "nearest_poi_dist_km",
+    "exng",
+    "ttm_exng"
+  ],
+  "dtypes": {
+    "baths": "float64",
+    "bedrooms": "int64",
+    "beds": "int64",
+    "district": "object",
+    "extra_guest_fee": "int64",
+    "guests": "int64",
+    "instant_book": "bool",
+    "l90d_avg_rate": "float64",
+    "l90d_occupancy": "float64",
+    "l90d_revenue": "float64",
+    "l90d_revpar": "float64",
+    "l90_pop": "int64",
+    "listing_type": "object",
+    "min_nights": "int64",
+    "num_reviews": "int64",
+    "photos_count": "int64",
+    "rating_overall": "float64",
+    "room_type": "object",
+    "superhost": "bool",
+    "ttm_avg_rate": "float64",
+    "ttm_occupancy": "float64",
+    "ttm_revenue": "float64",
+    "ttm_revpar": "float64",
+    "ttm_pop": "int64",
+    "latitude_masked": "float64",
+    "longitude_masked": "float64",
+    "refined_status": "object",
+    "baths_group": "object",
+    "bedrooms_group": "object",
+    "guests_group": "object",
+    "extra_guest_fee_policy": "int64",
+    "operation_status": "object",
+    "nearest_poi_name": "object",
+    "nearest_poi_addr": "object",
+    "nearest_poi_type": "int64",
+    "nearest_poi_type_name": "object",
+    "nearest_poi_lat": "float64",
+    "nearest_poi_lng": "float64",
+    "nearest_poi_image": "object",
+    "nearest_poi_dist_km": "float64",
+    "exng": "float64",
+    "ttm_exng": "float64"
+  },
+  "missing_summary": {
+    "baths": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "bedrooms": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "beds": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "district": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "extra_guest_fee": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "guests": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "instant_book": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "l90d_avg_rate": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "l90d_occupancy": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "l90d_revenue": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "l90d_revpar": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "l90_pop": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "listing_type": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "min_nights": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "num_reviews": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "photos_count": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "rating_overall": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "room_type": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "superhost": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "ttm_avg_rate": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "ttm_occupancy": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "ttm_revenue": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "ttm_revpar": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "ttm_pop": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "latitude_masked": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "longitude_masked": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "refined_status": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "baths_group": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "bedrooms_group": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "guests_group": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "extra_guest_fee_policy": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "operation_status": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "nearest_poi_name": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "nearest_poi_addr": {
+      "count": 194,
+      "pct": 0.61
+    },
+    "nearest_poi_type": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "nearest_poi_type_name": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "nearest_poi_lat": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "nearest_poi_lng": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "nearest_poi_image": {
+      "count": 7668,
+      "pct": 23.92
+    },
+    "nearest_poi_dist_km": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "exng": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "ttm_exng": {
+      "count": 0,
+      "pct": 0.0
+    }
+  },
+  "high_missing_cols": [
+    "nearest_poi_image"
+  ],
+  "constant_cols": [
+    "exng",
+    "ttm_exng"
+  ],
+  "duplicates": 0,
+  "skewness": {
+    "baths": 7.027,
+    "bedrooms": 12.208,
+    "beds": 6.592,
+    "extra_guest_fee": 25.587,
+    "guests": 2.011,
+    "l90d_avg_rate": 6.452,
+    "l90d_occupancy": 1.172,
+    "l90d_revenue": 3.855,
+    "l90d_revpar": 3.855,
+    "l90_pop": 1.286,
+    "min_nights": 13.572,
+    "num_reviews": 8.098,
+    "photos_count": 2.944,
+    "rating_overall": -1.825,
+    "ttm_avg_rate": 4.391,
+    "ttm_occupancy": 0.813,
+    "ttm_revenue": 3.831,
+    "ttm_revpar": 3.756,
+    "ttm_pop": 1.262,
+    "latitude_masked": 0.022,
+    "longitude_masked": 0.149,
+    "extra_guest_fee_policy": 3.423,
+    "nearest_poi_type": -0.978,
+    "nearest_poi_lat": 0.028,
+    "nearest_poi_lng": 0.149,
+    "nearest_poi_dist_km": 1.806,
+    "exng": 0.0,
+    "ttm_exng": 0.0
+  },
+  "cardinality": {
+    "baths": 23,
+    "bedrooms": 26,
+    "beds": 31,
+    "district": 25,
+    "extra_guest_fee": 52,
+    "guests": 17,
+    "instant_book": 2,
+    "l90d_avg_rate": 19242,
+    "l90d_occupancy": 91,
+    "l90d_revenue": 13274,
+    "l90d_revpar": 10568,
+    "l90_pop": 25,
+    "listing_type": 94,
+    "min_nights": 84,
+    "num_reviews": 459,
+    "photos_count": 213,
+    "rating_overall": 186,
+    "room_type": 4,
+    "superhost": 2,
+    "ttm_avg_rate": 28362,
+    "ttm_occupancy": 660,
+    "ttm_revenue": 20076,
+    "ttm_revpar": 19814,
+    "ttm_pop": 25,
+    "latitude_masked": 32061,
+    "longitude_masked": 32061,
+    "refined_status": 5,
+    "baths_group": 2,
+    "bedrooms_group": 2,
+    "guests_group": 2,
+    "extra_guest_fee_policy": 2,
+    "operation_status": 2,
+    "nearest_poi_name": 2965,
+    "nearest_poi_addr": 2866,
+    "nearest_poi_type": 8,
+    "nearest_poi_type_name": 8,
+    "nearest_poi_lat": 2971,
+    "nearest_poi_lng": 2971,
+    "nearest_poi_image": 2426,
+    "nearest_poi_dist_km": 737,
+    "exng": 1,
+    "ttm_exng": 1
+  },
+  "datetime_cols": [],
+  "is_time_series": false,
+  "numeric_stats": {
+    "baths": {
+      "count": 32061.0,
+      "mean": 1.0309878044976764,
+      "std": 0.7664084400307964,
+      "min": 0.0,
+      "25%": 1.0,
+      "50%": 1.0,
+      "75%": 1.0,
+      "max": 30.0
+    },
+    "bedrooms": {
+      "count": 32061.0,
+      "mean": 1.271919154112473,
+      "std": 1.4057564660610324,
+      "min": 0.0,
+      "25%": 1.0,
+      "50%": 1.0,
+      "75%": 2.0,
+      "max": 50.0
+    },
+    "beds": {
+      "count": 32061.0,
+      "mean": 1.8966657309503758,
+      "std": 1.7645275581976203,
+      "min": 0.0,
+      "25%": 1.0,
+      "50%": 1.0,
+      "75%": 2.0,
+      "max": 41.0
+    },
+    "extra_guest_fee": {
+      "count": 32061.0,
+      "mean": 1133.0622563238826,
+      "std": 5925.944070797484,
+      "min": 0.0,
+      "25%": 0.0,
+      "50%": 0.0,
+      "75%": 0.0,
+      "max": 492341.0
+    },
+    "guests": {
+      "count": 32061.0,
+      "mean": 3.2523626836343222,
+      "std": 2.935133265125993,
+      "min": 0.0,
+      "25%": 2.0,
+      "50%": 2.0,
+      "75%": 4.0,
+      "max": 16.0
+    },
+    "l90d_avg_rate": {
+      "count": 32061.0,
+      "mean": 76543.97617675949,
+      "std": 112481.22658824468,
+      "min": 0.0,
+      "25%": 0.0,
+      "50%": 52134.30462479716,
+      "75%": 115201.7849892498,
+      "max": 4212137.9179813415
+    },
+    "l90d_occupancy": {
+      "count": 32061.0,
+      "mean": 0.20773706372227943,
+      "std": 0.3021449345800658,
+      "min": 0.0,
+      "25%": 0.0,
+      "50%": 0.0,
+      "75%": 0.4,
+      "max": 1.0
+    },
+    "l90d_revenue": {
+      "count": 32061.0,
+      "mean": 2458504.4272480584,
+      "std": 4750840.469371418,
+      "min": 0.0,
+      "25%": 0.0,
+      "50%": 0.0,
+      "75%": 3348194.0,
+      "max": 101029436.0
+    },
+    "l90d_revpar": {
+      "count": 32061.0,
+      "mean": 27316.71583231964,
+      "std": 52787.11634766571,
+      "min": 0.0,
+      "25%": 0.0,
+      "50%": 0.0,
+      "75%": 37202.2,
+      "max": 1122549.3
+    },
+    "l90_pop": {
+      "count": 32061.0,
+      "mean": 456109.85065967997,
+      "std": 173316.69002821378,
+      "min": 227275.0,
+      "25%": 310940.0,
+      "50%": 421763.0,
+      "75%": 468722.0,
+      "max": 875199.0
+    },
+    "min_nights": {
+      "count": 32061.0,
+      "mean": 6.126883129035276,
+      "std": 24.164131169282822,
+      "min": 0.0,
+      "25%": 1.0,
+      "50%": 2.0,
+      "75%": 3.0,
+      "max": 730.0
+    },
+    "num_reviews": {
+      "count": 32061.0,
+      "mean": 41.319983780917624,
+      "std": 62.193909805692314,
+      "min": 0.0,
+      "25%": 6.0,
+      "50%": 21.0,
+      "75%": 52.0,
+      "max": 3282.0
+    },
+    "photos_count": {
+      "count": 32061.0,
+      "mean": 27.310969713982722,
+      "std": 22.612837343523456,
+      "min": 0.0,
+      "25%": 13.0,
+      "50%": 22.0,
+      "75%": 35.0,
+      "max": 299.0
+    },
+    "rating_overall": {
+      "count": 32061.0,
+      "mean": 3.9774311468762673,
+      "std": 1.7086885599192163,
+      "min": 0.0,
+      "25%": 4.33,
+      "50%": 4.73,
+      "75%": 4.89,
+      "max": 5.0
+    },
+    "ttm_avg_rate": {
+      "count": 32061.0,
+      "mean": 105517.82700380441,
+      "std": 113528.97861199857,
+      "min": 0.0,
+      "25%": 41419.67912955172,
+      "50%": 82575.86982392537,
+      "75%": 133756.4573362348,
+      "max": 1981470.3548294457
+    },
+    "ttm_occupancy": {
+      "count": 32061.0,
+      "mean": 0.2496189763263779,
+      "std": 0.2873409712012946,
+      "min": 0.0,
+      "25%": 0.0,
+      "50%": 0.118,
+      "75%": 0.479,
+      "max": 0.995
+    },
+    "ttm_revenue": {
+      "count": 32061.0,
+      "mean": 11218245.217429275,
+      "std": 18993392.417786267,
+      "min": 0.0,
+      "25%": 0.0,
+      "50%": 3145816.0,
+      "75%": 16110294.0,
+      "max": 303017921.0
+    },
+    "ttm_revpar": {
+      "count": 32061.0,
+      "mean": 31309.895287108946,
+      "std": 52454.103570673986,
+      "min": 0.0,
+      "25%": 0.0,
+      "50%": 8868.3,
+      "75%": 45259.8,
+      "max": 830186.1
+    },
+    "ttm_pop": {
+      "count": 32061.0,
+      "mean": 457768.9445432145,
+      "std": 168553.96254825505,
+      "min": 229786.0,
+      "25%": 315657.0,
+      "50%": 427001.0,
+      "75%": 470739.0,
+      "max": 863150.0
+    },
+    "latitude_masked": {
+      "count": 32061.0,
+      "mean": 37.54476749841483,
+      "std": 0.03448356285793597,
+      "min": 37.435999855280826,
+      "25%": 37.51677343010525,
+      "50%": 37.55401457280525,
+      "75%": 37.563267024094664,
+      "max": 37.684354876138514
+    },
+    "longitude_masked": {
+      "count": 32061.0,
+      "mean": 126.97914863467456,
+      "std": 0.061269782721140004,
+      "min": 126.79590084568147,
+      "25%": 126.92779935829203,
+      "50%": 126.9817281635964,
+      "75%": 127.02352718565922,
+      "max": 127.18058679648615
+    },
+    "extra_guest_fee_policy": {
+      "count": 32061.0,
+      "mean": 0.06830728922990549,
+      "std": 0.25227641296776926,
+      "min": 0.0,
+      "25%": 0.0,
+      "50%": 0.0,
+      "75%": 0.0,
+      "max": 1.0
+    },
+    "nearest_poi_type": {
+      "count": 32061.0,
+      "mean": 30.965035401266338,
+      "std": 10.592290839289193,
+      "min": 12.0,
+      "25%": 25.0,
+      "50%": 38.0,
+      "75%": 39.0,
+      "max": 39.0
+    },
+    "nearest_poi_lat": {
+      "count": 32061.0,
+      "mean": 37.544801925119415,
+      "std": 0.03443922408998894,
+      "min": 37.4463779899,
+      "25%": 37.5168929903,
+      "50%": 37.5543072392,
+      "75%": 37.5631104235,
+      "max": 37.6889162321
+    },
+    "nearest_poi_lng": {
+      "count": 32061.0,
+      "mean": 126.97916353520256,
+      "std": 0.061299417905496555,
+      "min": 126.7964131765,
+      "25%": 126.9275232249,
+      "50%": 126.9819240556,
+      "75%": 127.0237186979,
+      "max": 127.1753646796
+    },
+    "nearest_poi_dist_km": {
+      "count": 32061.0,
+      "mean": 0.13856666978572094,
+      "std": 0.11851935291893721,
+      "min": 0.0,
+      "25%": 0.055,
+      "50%": 0.102,
+      "75%": 0.185,
+      "max": 1.155
+    },
+    "exng": {
+      "count": 32061.0,
+      "mean": 1385.0600000000002,
+      "std": 1.4051912287487977e-10,
+      "min": 1385.06,
+      "25%": 1385.06,
+      "50%": 1385.06,
+      "75%": 1385.06,
+      "max": 1385.06
+    },
+    "ttm_exng": {
+      "count": 32061.0,
+      "mean": 1407.1699999999994,
+      "std": 1.0975498480858329e-09,
+      "min": 1407.17,
+      "25%": 1407.17,
+      "50%": 1407.17,
+      "75%": 1407.17,
+      "max": 1407.17
+    }
+  },
+  "numeric_cols": [
+    "baths",
+    "bedrooms",
+    "beds",
+    "extra_guest_fee",
+    "guests",
+    "l90d_avg_rate",
+    "l90d_occupancy",
+    "l90d_revenue",
+    "l90d_revpar",
+    "l90_pop",
+    "min_nights",
+    "num_reviews",
+    "photos_count",
+    "rating_overall",
+    "ttm_avg_rate",
+    "ttm_occupancy",
+    "ttm_revenue",
+    "ttm_revpar",
+    "ttm_pop",
+    "latitude_masked",
+    "longitude_masked",
+    "extra_guest_fee_policy",
+    "nearest_poi_type",
+    "nearest_poi_lat",
+    "nearest_poi_lng",
+    "nearest_poi_dist_km",
+    "exng",
+    "ttm_exng"
+  ],
+  "categorical_cols": [
+    "district",
+    "listing_type",
+    "room_type",
+    "refined_status",
+    "baths_group",
+    "bedrooms_group",
+    "guests_group",
+    "operation_status",
+    "nearest_poi_name",
+    "nearest_poi_addr",
+    "nearest_poi_type_name",
+    "nearest_poi_image"
+  ],
+  "top_correlations": [
+    {
+      "col_a": "l90d_revenue",
+      "col_b": "l90d_revpar",
+      "correlation": 1.0
+    },
+    {
+      "col_a": "l90_pop",
+      "col_b": "ttm_pop",
+      "correlation": 1.0
+    },
+    {
+      "col_a": "longitude_masked",
+      "col_b": "nearest_poi_lng",
+      "correlation": 1.0
+    },
+    {
+      "col_a": "nearest_poi_lat",
+      "col_b": "latitude_masked",
+      "correlation": 0.999
+    },
+    {
+      "col_a": "ttm_revpar",
+      "col_b": "ttm_revenue",
+      "correlation": 0.995
+    },
+    {
+      "col_a": "ttm_revpar",
+      "col_b": "l90d_revenue",
+      "correlation": 0.907
+    },
+    {
+      "col_a": "ttm_revpar",
+      "col_b": "l90d_revpar",
+      "correlation": 0.907
+    },
+    {
+      "col_a": "ttm_revenue",
+      "col_b": "l90d_revenue",
+      "correlation": 0.896
+    },
+    {
+      "col_a": "l90d_revpar",
+      "col_b": "ttm_revenue",
+      "correlation": 0.896
+    },
+    {
+      "col_a": "l90d_occupancy",
+      "col_b": "ttm_occupancy",
+      "correlation": 0.874
+    },
+    {
+      "col_a": "l90d_occupancy",
+      "col_b": "l90d_revenue",
+      "correlation": 0.751
+    },
+    {
+      "col_a": "l90d_revpar",
+      "col_b": "l90d_occupancy",
+      "correlation": 0.751
+    },
+    {
+      "col_a": "l90d_avg_rate",
+      "col_b": "ttm_avg_rate",
+      "correlation": 0.729
+    },
+    {
+      "col_a": "ttm_revpar",
+      "col_b": "ttm_occupancy",
+      "correlation": 0.712
+    },
+    {
+      "col_a": "ttm_occupancy",
+      "col_b": "ttm_revenue",
+      "correlation": 0.709
+    },
+    {
+      "col_a": "extra_guest_fee",
+      "col_b": "extra_guest_fee_policy",
+      "correlation": 0.706
+    },
+    {
+      "col_a": "ttm_occupancy",
+      "col_b": "l90d_revenue",
+      "correlation": 0.672
+    },
+    {
+      "col_a": "ttm_occupancy",
+      "col_b": "l90d_revpar",
+      "correlation": 0.672
+    },
+    {
+      "col_a": "ttm_revpar",
+      "col_b": "l90d_avg_rate",
+      "correlation": 0.648
+    },
+    {
+      "col_a": "l90d_avg_rate",
+      "col_b": "ttm_revenue",
+      "correlation": 0.641
+    }
+  ]
+}

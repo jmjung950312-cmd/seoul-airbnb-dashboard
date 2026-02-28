@@ -1,0 +1,14 @@
+{
+  "analysis_goal": "비즈니스 의사결정",
+  "target_variable": "both_ttm_and_l90d_revpar",
+  "target_audience": "데이터 분석가/개발자 (팀 내부)",
+  "time_investment": "심도있게 (하루)",
+  "analysis_perspectives": [
+    "Host Perspective: Exploring RevPAR Optimization Points at the Property Level",
+    "Platform Perspective: Exploring RevPAR Optimization Points at the District Level"
+  ],
+  "data_filter": "전체 데이터 (32,061 records — Dormant 포함)",
+  "preprocessing_note": "전처리 완료 (_final.ipynb) — 추가 전처리 불필요. EDA/분석부터 시작",
+  "primary_kpi": "ttm_revpar",
+  "secondary_kpi": "l90d_revpar"
+}

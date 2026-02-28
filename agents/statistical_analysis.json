@@ -1,0 +1,132 @@
+{
+  "distribution_analysis": {
+    "ttm_revpar_all": {
+      "mean": 31309.90,
+      "median": 8868.30,
+      "std": 52454.10,
+      "min": 0.0,
+      "max": 830186.10,
+      "q25": 0.0,
+      "q75": 45259.80,
+      "skewness": 3.76,
+      "n": 32061
+    },
+    "ttm_revpar_active_operating": {
+      "mean": 63457.84,
+      "median": 47850.30,
+      "std": 63476.40,
+      "min": 56.80,
+      "max": 830186.10,
+      "q25": 24096.30,
+      "q75": 80229.40,
+      "n": 14399
+    },
+    "l90d_revpar_all": {
+      "mean": 27316.72,
+      "median": 0.0,
+      "std": 52787.12,
+      "min": 0.0,
+      "max": 1122549.0,
+      "n": 32061
+    },
+    "room_type_median_revpar": {
+      "entire_home": 20007.80,
+      "private_room": 1252.20,
+      "hotel_room": 0.0,
+      "shared_room": 283.60
+    },
+    "operation_status_median_revpar": {
+      "Operating": 15466.50,
+      "Non_Operating": 0.0
+    },
+    "refined_status_counts": {
+      "Dormant": 17399,
+      "Active": 14399,
+      "Mystery": 167,
+      "Ghost": 88,
+      "New": 8
+    }
+  },
+  "correlation_analysis": {
+    "spearman_with_ttm_revpar": [
+      {"column": "ttm_occupancy", "rho": 0.9548, "p_value": 0.0, "significant": true},
+      {"column": "ttm_avg_rate", "rho": 0.5156, "p_value": 0.0, "significant": true},
+      {"column": "num_reviews", "rho": 0.4496, "p_value": 0.0, "significant": true},
+      {"column": "rating_overall", "rho": 0.4175, "p_value": 0.0, "significant": true},
+      {"column": "photos_count", "rho": 0.3533, "p_value": 0.0, "significant": true},
+      {"column": "nearest_poi_dist_km", "rho": -0.0699, "p_value": 0.0, "significant": true},
+      {"column": "ttm_pop", "rho": -0.0372, "p_value": 0.0, "significant": true}
+    ],
+    "notes": "모든 변수가 p<0.05 수준에서 통계적으로 유의미. ttm_occupancy가 압도적으로 높은 상관(rho=0.955). nearest_poi_dist_km, ttm_pop는 음의 상관(가까울수록, 인구 밀집 지역일수록 RevPAR 낮음 — 도심 저가 숙소 영향 가능성)."
+  },
+  "group_tests": {
+    "superhost_test": {
+      "test": "Mann-Whitney U",
+      "statistic": 178954688.50,
+      "p_value": 0.0,
+      "significant": true,
+      "superhost_median": 35468.80,
+      "non_superhost_median": 611.90,
+      "interpretation": "수퍼호스트의 RevPAR 중위값(35,469)이 일반 호스트(612)보다 약 58배 높음. 통계적으로 유의미한 차이."
+    },
+    "room_type_test": {
+      "test": "Kruskal-Wallis",
+      "statistic": 2300.00,
+      "p_value": 0.0,
+      "significant": true,
+      "group_medians": {
+        "entire_home": 20007.80,
+        "private_room": 1252.20,
+        "hotel_room": 0.0,
+        "shared_room": 283.60
+      },
+      "interpretation": "객실 유형에 따른 RevPAR 차이가 통계적으로 유의미. entire_home이 가장 높고 shared_room이 가장 낮음."
+    },
+    "operation_status_test": {
+      "test": "Mann-Whitney U",
+      "statistic": 89773100.00,
+      "p_value": 0.0,
+      "significant": true,
+      "operating_median": 15466.50,
+      "non_operating_median": 0.0,
+      "interpretation": "운영 중인 숙소와 비운영 숙소 간 RevPAR 차이가 통계적으로 유의미."
+    },
+    "extra_guest_fee_policy_test": {
+      "test": "Mann-Whitney U",
+      "statistic": 42973370.50,
+      "p_value": 0.0,
+      "significant": true,
+      "extra_fee_1_median": 29821.35,
+      "extra_fee_0_median": 6804.70,
+      "interpretation": "추가 게스트 요금 정책이 있는 숙소의 RevPAR 중위값(29,821)이 없는 숙소(6,805)보다 약 4.4배 높음."
+    }
+  },
+  "district_stats": [
+    {"district": "Gangdong-gu", "median_revpar": 22210.70, "mean_revpar": 28736.05, "count": 351, "rank": 1},
+    {"district": "Gwangjin-gu", "median_revpar": 19501.75, "mean_revpar": 27893.10, "count": 816, "rank": 2},
+    {"district": "Jongno-gu", "median_revpar": 16251.10, "mean_revpar": 48216.89, "count": 2640, "rank": 3},
+    {"district": "Mapo-gu", "median_revpar": 15243.50, "mean_revpar": 41235.95, "count": 6699, "rank": 4},
+    {"district": "Yongsan-gu", "median_revpar": 14750.70, "mean_revpar": 37190.28, "count": 2870, "rank": 5},
+    {"district": "Gangseo-gu", "median_revpar": 12043.80, "mean_revpar": 18089.04, "count": 738, "rank": 6},
+    {"district": "Dobong-gu", "median_revpar": 11532.20, "mean_revpar": 18360.75, "count": 183, "rank": 7},
+    {"district": "Eunpyeong-gu", "median_revpar": 11006.30, "mean_revpar": 25027.35, "count": 376, "rank": 8},
+    {"district": "Yeongdeungpo-gu", "median_revpar": 10789.30, "mean_revpar": 21163.66, "count": 1051, "rank": 9},
+    {"district": "Yangcheon-gu", "median_revpar": 10031.90, "mean_revpar": 22098.23, "count": 196, "rank": 10},
+    {"district": "Jung-gu", "median_revpar": 9787.70, "mean_revpar": 36787.90, "count": 3589, "rank": 11},
+    {"district": "Gangbuk-gu", "median_revpar": 8528.15, "mean_revpar": 17775.12, "count": 262, "rank": 12},
+    {"district": "Seocho-gu", "median_revpar": 7789.35, "mean_revpar": 24195.74, "count": 1596, "rank": 13},
+    {"district": "Songpa-gu", "median_revpar": 7182.10, "mean_revpar": 24577.05, "count": 1034, "rank": 14},
+    {"district": "Seongdong-gu", "median_revpar": 6189.30, "mean_revpar": 26956.22, "count": 579, "rank": 15},
+    {"district": "Gwanak-gu", "median_revpar": 5468.30, "mean_revpar": 14072.12, "count": 1165, "rank": 16},
+    {"district": "Seongbuk-gu", "median_revpar": 5398.45, "mean_revpar": 24510.41, "count": 632, "rank": 17},
+    {"district": "Gangnam-gu", "median_revpar": 5361.10, "mean_revpar": 28115.25, "count": 3097, "rank": 18},
+    {"district": "Guro-gu", "median_revpar": 3409.05, "mean_revpar": 16351.42, "count": 280, "rank": 19},
+    {"district": "Seodaemun-gu", "median_revpar": 3028.60, "mean_revpar": 22564.06, "count": 1754, "rank": 20},
+    {"district": "Dongdaemun-gu", "median_revpar": 2542.45, "mean_revpar": 15334.36, "count": 862, "rank": 21},
+    {"district": "Nowon-gu", "median_revpar": 1866.30, "mean_revpar": 16460.34, "count": 194, "rank": 22},
+    {"district": "Jungnang-gu", "median_revpar": 994.50, "mean_revpar": 13823.32, "count": 144, "rank": 23},
+    {"district": "Geumcheon-gu", "median_revpar": 207.00, "mean_revpar": 7824.78, "count": 147, "rank": 24},
+    {"district": "Dongjak-gu", "median_revpar": 0.0, "mean_revpar": 11198.03, "count": 806, "rank": 25}
+  ],
+  "python_code": "# =============================================================================\n# 서울 에어비앤비 RevPAR 통계 분석\n# =============================================================================\n\n# Cell 1: 라이브러리 및 데이터 로드\nimport pandas as pd\nimport numpy as np\nimport matplotlib.pyplot as plt\nimport matplotlib.ticker as mticker\nimport seaborn as sns\nfrom scipy import stats\nimport warnings\nwarnings.filterwarnings('ignore')\n\nplt.rc('font', family='AppleGothic')\nplt.rcParams['axes.unicode_minus'] = False\n\nDATA_PATH = '/Users/jungmo/Documents/data-projects/seoul_airbnb_cleaned_2026-02-18_11-23/data/raw/seoul_airbnb_cleaned.csv'\ndf = pd.read_csv(DATA_PATH)\n\n# Active+Operating 서브셋\ndf_ao = df[(df['refined_status'] == 'Active') & (df['operation_status'] == 'Operating')].copy()\n\nprint(f'전체 데이터: {df.shape}')\nprint(f'Active+Operating 서브셋: {df_ao.shape}')\n\n# =============================================================================\n# Cell 2: 분포 기본 통계 출력\n# =============================================================================\nprint('=== 전체 ttm_revpar 기본 통계 ===')\nprint(df['ttm_revpar'].describe().round(2))\nprint(f'Skewness: {df[\"ttm_revpar\"].skew():.4f}')\n\nprint('\\n=== Active+Operating ttm_revpar 기본 통계 ===')\nprint(df_ao['ttm_revpar'].describe().round(2))\nprint(f'Skewness: {df_ao[\"ttm_revpar\"].skew():.4f}')\n\n# =============================================================================\n# Cell 3: ttm_revpar 분포 시각화 (전체 vs Active+Operating)\n# =============================================================================\nfig, axes = plt.subplots(2, 2, figsize=(14, 8))\nfig.suptitle('ttm_revpar 분포 분석', fontsize=14, fontweight='bold')\n\n# (1,1) 전체 분포 — 로그 스케일 히스토그램\nax = axes[0, 0]\nvalid_all = df[df['ttm_revpar'] > 0]['ttm_revpar']\nax.hist(np.log1p(valid_all), bins=60, color='steelblue', edgecolor='white', alpha=0.8)\nax.set_title('전체 ttm_revpar 분포 (log1p 변환)')\nax.set_xlabel('log1p(ttm_revpar)')\nax.set_ylabel('빈도')\nax.axvline(np.log1p(df['ttm_revpar'].median()), color='red', linestyle='--',\n           label=f'중위값: ₩{df[\"ttm_revpar\"].median():,.0f}')\nax.legend(fontsize=9)\n\n# (1,2) Active+Operating 분포\nax = axes[0, 1]\nax.hist(np.log1p(df_ao['ttm_revpar']), bins=60, color='darkorange', edgecolor='white', alpha=0.8)\nax.set_title('Active+Operating ttm_revpar 분포 (log1p 변환)')\nax.set_xlabel('log1p(ttm_revpar)')\nax.set_ylabel('빈도')\nax.axvline(np.log1p(df_ao['ttm_revpar'].median()), color='red', linestyle='--',\n           label=f'중위값: ₩{df_ao[\"ttm_revpar\"].median():,.0f}')\nax.legend(fontsize=9)\n\n# (2,1) room_type별 BoxPlot\nax = axes[1, 0]\nroom_order = df.groupby('room_type')['ttm_revpar'].median().sort_values(ascending=False).index.tolist()\nroom_data = [df[df['room_type'] == rt]['ttm_revpar'].values for rt in room_order]\nbp = ax.boxplot(room_data, labels=room_order, patch_artist=True,\n                showfliers=False, medianprops=dict(color='red', linewidth=2))\ncolors = ['#4c72b0', '#dd8452', '#55a868', '#c44e52']\nfor patch, color in zip(bp['boxes'], colors):\n    patch.set_facecolor(color)\n    patch.set_alpha(0.7)\nax.set_title('room_type별 ttm_revpar 분포')\nax.set_ylabel('ttm_revpar (KRW)')\nax.yaxis.set_major_formatter(mticker.FuncFormatter(lambda x, _: f'₩{x:,.0f}'))\nax.tick_params(axis='x', rotation=15)\nfor i, rt in enumerate(room_order):\n    med = df[df['room_type'] == rt]['ttm_revpar'].median()\n    ax.annotate(f'₩{med:,.0f}', xy=(i+1, med), xytext=(5, 5),\n                textcoords='offset points', fontsize=8, color='red')\n\n# (2,2) operation_status별 KDE\nax = axes[1, 1]\nfor status, color in [('Operating', 'steelblue'), ('Non_Operating', 'tomato')]:\n    sub = df[df['operation_status'] == status]['ttm_revpar']\n    valid_sub = np.log1p(sub[sub > 0])\n    if len(valid_sub) > 10:\n        valid_sub.plot.kde(ax=ax, label=f'{status} (n={len(sub)})', color=color, linewidth=2)\nax.set_title('operation_status별 ttm_revpar 분포 (log1p)')\nax.set_xlabel('log1p(ttm_revpar)')\nax.set_ylabel('밀도')\nax.legend(fontsize=9)\n\nplt.tight_layout()\nplt.savefig('/Users/jungmo/Documents/data-projects/seoul_airbnb_cleaned_2026-02-18_11-23/reports/fig_distribution_analysis.png',\n            dpi=150, bbox_inches='tight')\nplt.show()\n\n# =============================================================================\n# Cell 4: Spearman 상관관계 분석\n# =============================================================================\nnumeric_vars = ['ttm_occupancy', 'ttm_avg_rate', 'num_reviews', 'rating_overall',\n                'photos_count', 'nearest_poi_dist_km', 'ttm_pop']\n\ncorr_results = []\nfor col in numeric_vars:\n    valid = df[['ttm_revpar', col]].dropna()\n    rho, pval = stats.spearmanr(valid['ttm_revpar'], valid[col])\n    corr_results.append({'변수': col, 'Spearman rho': round(rho, 4), 'p-value': round(pval, 6),\n                         'n': len(valid), '유의미': pval < 0.05})\n\ncorr_df = pd.DataFrame(corr_results).sort_values('Spearman rho', key=abs, ascending=False)\nprint('=== Spearman 상관관계 (ttm_revpar 기준) ===')\nprint(corr_df.to_string(index=False))\n\n# 상관관계 바 차트\nfig, ax = plt.subplots(figsize=(10, 5))\ncolors_bar = ['#2ecc71' if r > 0 else '#e74c3c' for r in corr_df['Spearman rho']]\nbars = ax.barh(corr_df['변수'], corr_df['Spearman rho'], color=colors_bar, edgecolor='white', alpha=0.85)\nax.axvline(0, color='black', linewidth=0.8)\nfor bar, val in zip(bars, corr_df['Spearman rho']):\n    offset = 0.01 if val >= 0 else -0.01\n    ax.text(val + offset, bar.get_y() + bar.get_height()/2,\n            f'{val:.4f}', va='center', ha='left' if val >= 0 else 'right', fontsize=10)\nax.set_xlabel('Spearman rho')\nax.set_title('ttm_revpar와 수치형 변수 간 Spearman 상관계수')\nax.set_xlim(-0.2, 1.05)\nplt.tight_layout()\nplt.savefig('/Users/jungmo/Documents/data-projects/seoul_airbnb_cleaned_2026-02-18_11-23/reports/fig_correlation_analysis.png',\n            dpi=150, bbox_inches='tight')\nplt.show()\n\n# =============================================================================\n# Cell 5: 그룹 간 차이 검정\n# =============================================================================\nprint('=== 그룹 간 통계적 차이 검정 ===\\n')\n\n# 1. Superhost Mann-Whitney U\nsh_yes = df[df['superhost'] == True]['ttm_revpar'].dropna()\nsh_no  = df[df['superhost'] == False]['ttm_revpar'].dropna()\nstat, pval = stats.mannwhitneyu(sh_yes, sh_no, alternative='two-sided')\nprint(f'[Superhost] Mann-Whitney U')\nprint(f'  statistic={stat:.2f}, p={pval:.4e}')\nprint(f'  수퍼호스트 중위값: ₩{sh_yes.median():,.0f}  vs  일반 호스트: ₩{sh_no.median():,.0f}')\nprint(f'  유의미 (p<0.05): {pval < 0.05}\\n')\n\n# 2. room_type Kruskal-Wallis\nroom_groups = [df[df['room_type'] == rt]['ttm_revpar'].dropna() for rt in df['room_type'].unique()]\nstat_rt, pval_rt = stats.kruskal(*room_groups)\nprint(f'[room_type] Kruskal-Wallis')\nprint(f'  statistic={stat_rt:.2f}, p={pval_rt:.4e}')\nprint(f'  유의미 (p<0.05): {pval_rt < 0.05}')\nfor rt in df['room_type'].unique():\n    med = df[df['room_type'] == rt]['ttm_revpar'].median()\n    print(f'    {rt}: 중위값 ₩{med:,.0f}')\nprint()\n\n# 3. operation_status Mann-Whitney U\nop  = df[df['operation_status'] == 'Operating']['ttm_revpar'].dropna()\nnop = df[df['operation_status'] == 'Non_Operating']['ttm_revpar'].dropna()\nstat_op, pval_op = stats.mannwhitneyu(op, nop, alternative='two-sided')\nprint(f'[operation_status] Mann-Whitney U')\nprint(f'  statistic={stat_op:.2f}, p={pval_op:.4e}')\nprint(f'  Operating 중위값: ₩{op.median():,.0f}  vs  Non-Operating: ₩{nop.median():,.0f}')\nprint(f'  유의미 (p<0.05): {pval_op < 0.05}\\n')\n\n# 4. extra_guest_fee_policy Mann-Whitney U\neg1 = df[df['extra_guest_fee_policy'] == 1]['ttm_revpar'].dropna()\neg0 = df[df['extra_guest_fee_policy'] == 0]['ttm_revpar'].dropna()\nstat_eg, pval_eg = stats.mannwhitneyu(eg1, eg0, alternative='two-sided')\nprint(f'[extra_guest_fee_policy] Mann-Whitney U')\nprint(f'  statistic={stat_eg:.2f}, p={pval_eg:.4e}')\nprint(f'  추가요금 있음(1) 중위값: ₩{eg1.median():,.0f}  vs  없음(0): ₩{eg0.median():,.0f}')\nprint(f'  유의미 (p<0.05): {pval_eg < 0.05}')\n\n# =============================================================================\n# Cell 6: 그룹 비교 시각화\n# =============================================================================\nfig, axes = plt.subplots(2, 2, figsize=(14, 8))\nfig.suptitle('그룹별 ttm_revpar 비교 (Active+Operating 서브셋)', fontsize=13, fontweight='bold')\n\n# Superhost\nax = axes[0, 0]\nsh_data_ao = [df_ao[df_ao['superhost'] == True]['ttm_revpar'],\n              df_ao[df_ao['superhost'] == False]['ttm_revpar']]\nbp = ax.boxplot(sh_data_ao, labels=['수퍼호스트', '일반 호스트'], patch_artist=True,\n                showfliers=False, medianprops=dict(color='red', linewidth=2))\nbp['boxes'][0].set_facecolor('#f39c12'); bp['boxes'][0].set_alpha(0.7)\nbp['boxes'][1].set_facecolor('#3498db'); bp['boxes'][1].set_alpha(0.7)\nfor i, g in enumerate(sh_data_ao):\n    ax.annotate(f'중위값\\n₩{g.median():,.0f}', xy=(i+1, g.median()),\n                xytext=(20, 10), textcoords='offset points', fontsize=8, color='red',\n                arrowprops=dict(arrowstyle='->', color='gray', lw=0.8))\nax.set_title(f'Superhost vs 일반 (p<0.001)')\nax.set_ylabel('ttm_revpar (KRW)')\nax.yaxis.set_major_formatter(mticker.FuncFormatter(lambda x, _: f'₩{x:,.0f}'))\n\n# room_type\nax = axes[0, 1]\nroom_order_ao = df_ao.groupby('room_type')['ttm_revpar'].median().sort_values(ascending=False).index.tolist()\nrt_data_ao = [df_ao[df_ao['room_type'] == rt]['ttm_revpar'].values for rt in room_order_ao]\nbp = ax.boxplot(rt_data_ao, labels=room_order_ao, patch_artist=True,\n                showfliers=False, medianprops=dict(color='red', linewidth=2))\npalet = ['#4c72b0', '#dd8452', '#55a868', '#c44e52']\nfor patch, color in zip(bp['boxes'], palet):\n    patch.set_facecolor(color); patch.set_alpha(0.7)\nax.set_title(f'room_type별 (p<0.001)')\nax.set_ylabel('ttm_revpar (KRW)')\nax.tick_params(axis='x', rotation=15)\nax.yaxis.set_major_formatter(mticker.FuncFormatter(lambda x, _: f'₩{x:,.0f}'))\n\n# operation_status\nax = axes[1, 0]\nop_data = [df[df['operation_status'] == s]['ttm_revpar'] for s in ['Operating', 'Non_Operating']]\nbp = ax.boxplot(op_data, labels=['Operating', 'Non-Operating'], patch_artist=True,\n                showfliers=False, medianprops=dict(color='red', linewidth=2))\nbp['boxes'][0].set_facecolor('#27ae60'); bp['boxes'][0].set_alpha(0.7)\nbp['boxes'][1].set_facecolor('#e74c3c'); bp['boxes'][1].set_alpha(0.7)\nfor i, g in enumerate(op_data):\n    ax.annotate(f'₩{g.median():,.0f}', xy=(i+1, g.median()),\n                xytext=(10, 10), textcoords='offset points', fontsize=9, color='red')\nax.set_title(f'operation_status별 (p<0.001)')\nax.set_ylabel('ttm_revpar (KRW)')\nax.yaxis.set_major_formatter(mticker.FuncFormatter(lambda x, _: f'₩{x:,.0f}'))\n\n# extra_guest_fee_policy\nax = axes[1, 1]\neg_data = [df[df['extra_guest_fee_policy'] == v]['ttm_revpar'] for v in [1, 0]]\nbp = ax.boxplot(eg_data, labels=['추가요금 있음(1)', '추가요금 없음(0)'], patch_artist=True,\n                showfliers=False, medianprops=dict(color='red', linewidth=2))\nbp['boxes'][0].set_facecolor('#8e44ad'); bp['boxes'][0].set_alpha(0.7)\nbp['boxes'][1].set_facecolor('#95a5a6'); bp['boxes'][1].set_alpha(0.7)\nfor i, g in enumerate(eg_data):\n    ax.annotate(f'₩{g.median():,.0f}', xy=(i+1, g.median()),\n                xytext=(10, 10), textcoords='offset points', fontsize=9, color='red')\nax.set_title(f'extra_guest_fee_policy별 (p<0.001)')\nax.set_ylabel('ttm_revpar (KRW)')\nax.yaxis.set_major_formatter(mticker.FuncFormatter(lambda x, _: f'₩{x:,.0f}'))\n\nplt.tight_layout()\nplt.savefig('/Users/jungmo/Documents/data-projects/seoul_airbnb_cleaned_2026-02-18_11-23/reports/fig_group_tests.png',\n            dpi=150, bbox_inches='tight')\nplt.show()\n\n# =============================================================================\n# Cell 7: 자치구별 RevPAR 통계\n# =============================================================================\ndistrict_stats = df.groupby('district')['ttm_revpar'].agg(\n    median_revpar='median',\n    mean_revpar='mean',\n    count='count'\n).reset_index().sort_values('median_revpar', ascending=False)\n\nprint('=== 자치구별 ttm_revpar 통계 (중위값 기준 정렬) ===')\nprint(district_stats.to_string(index=False))\n\nprint(f'\\n상위 5구: {district_stats.head()[\"district\"].tolist()}')\nprint(f'하위 5구: {district_stats.tail()[\"district\"].tolist()}')\n\n# 자치구 RevPAR 바 차트\nfig, ax = plt.subplots(figsize=(14, 7))\ncolors_bar = plt.cm.RdYlGn(np.linspace(0.85, 0.15, len(district_stats)))\nbars = ax.barh(district_stats['district'], district_stats['median_revpar'],\n               color=colors_bar, edgecolor='white', alpha=0.9)\nfor bar, val in zip(bars, district_stats['median_revpar']):\n    ax.text(val + 200, bar.get_y() + bar.get_height()/2,\n            f'₩{val:,.0f}', va='center', fontsize=8)\nax.set_xlabel('ttm_revpar 중위값 (KRW)')\nax.set_title('서울 25개 자치구별 ttm_revpar 중위값 순위')\nax.xaxis.set_major_formatter(mticker.FuncFormatter(lambda x, _: f'₩{x:,.0f}'))\nplt.tight_layout()\nplt.savefig('/Users/jungmo/Documents/data-projects/seoul_airbnb_cleaned_2026-02-18_11-23/reports/fig_district_revpar.png',\n            dpi=150, bbox_inches='tight')\nplt.show()\n\n# =============================================================================\n# Cell 8: 결과 요약 출력\n# =============================================================================\nprint('=' * 60)\nprint('분석 결과 요약')\nprint('=' * 60)\nprint(f'[분포] 전체 ttm_revpar 중위값: ₩{df[\"ttm_revpar\"].median():,.0f}')\nprint(f'[분포] Active+Operating 중위값: ₩{df_ao[\"ttm_revpar\"].median():,.0f}')\nprint(f'[상관] ttm_occupancy rho=0.955 — RevPAR의 가장 강력한 예측변수')\nprint(f'[검정] 수퍼호스트 RevPAR 중위값 {sh_yes.median()/sh_no.median():.0f}배 높음 (p<0.001)')\nprint(f'[자치구] 최고: Gangdong-gu (중위값 ₩22,211), 최저: Dongjak-gu (중위값 ₩0)')\nprint('=' * 60)"
+}

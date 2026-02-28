@@ -1,0 +1,1550 @@
+{
+  "synthesis": {
+    "host_perspective_insights": [
+      {
+        "rank": 1,
+        "insight": "점유율(ttm_occupancy)이 RevPAR의 압도적 드라이버",
+        "evidence": "Spearman rho=0.955 (전체 변수 중 가장 강한 상관). RevPAR = ADR × Occupancy 공식에서 Occupancy 개선이 ADR 인상보다 RevPAR 향상 효과가 크다.",
+        "action": "호스트는 즉시예약(instant_book) 활성화, 최소숙박일 1~3박 설정으로 점유율 우선 최적화",
+        "hypothesis_link": ["H1", "H2", "H4"]
+      },
+      {
+        "rank": 2,
+        "insight": "슈퍼호스트 지위가 RevPAR를 58배 격차로 구분 (전체 기준)",
+        "evidence": "Mann-Whitney U: 슈퍼호스트 중위값 ₩35,469 vs 일반 호스트 ₩612 (전체). Active+Operating 기준: ₩79,087 vs ₩43,201, 프리미엄 +83.1%.",
+        "action": "응답률, 평점 유지, 취소율 최소화로 슈퍼호스트 달성 — 연간 RevPAR 수익 약 2배 차이",
+        "hypothesis_link": ["H1"]
+      },
+      {
+        "rank": 3,
+        "insight": "entire_home이 RevPAR 절대값 최고 (₩75,137), private_room은 점유율로 보완",
+        "evidence": "Kruskal-Wallis p<0.001. entire_home 중위 RevPAR ₩20,008 vs private_room ₩1,252 (전체). Active+Operating 기준 격차는 더욱 확대됨.",
+        "action": "부동산 보유 형태에 따라 entire_home은 단가 최적화, private_room은 점유율 극대화 전략",
+        "hypothesis_link": ["H2"]
+      },
+      {
+        "rank": 4,
+        "insight": "사진 수·평점은 RevPAR와 유의미한 정상관 (rho=0.353, 0.418)",
+        "evidence": "photos_count rho=0.353 (p<0.001), rating_overall rho=0.418 (p<0.001). 고RevPAR Q4 숙소는 저RevPAR Q1 대비 사진 수·평점이 일관되게 높음.",
+        "action": "사진 22~35장 구간이 ROI 최대화 구간(hypothesis H3 예측). 평점 4.8 이상 유지가 RevPAR 프리미엄 진입점",
+        "hypothesis_link": ["H3"]
+      },
+      {
+        "rank": 5,
+        "insight": "추가요금 정책(extra_guest_fee_policy) 활성화 숙소가 RevPAR 4.4배 높음",
+        "evidence": "extra_fee_1 중위값 ₩29,821 vs extra_fee_0 ₩6,805. 단 전체 6.8%만 활성화 — 대용량 숙소에서 적극 활용 가능.",
+        "action": "guests_group='large' 숙소는 추가요금 정책 설정으로 ADR 인상. 관광 핵심 자치구(마포, 종로, 용산)에서 효과 클 것으로 예상",
+        "hypothesis_link": ["H5"]
+      },
+      {
+        "rank": 6,
+        "insight": "min_nights 2~3박 설정이 RevPAR 최적점 (hypothesis)",
+        "evidence": "min_nights 중위값=2, 분포 극도의 우편향(skewness=13.57, max=730). 단기~중기 숙박이 점유율-ADR 균형 최적.",
+        "action": "min_nights>7 호스트는 설정 재검토. 플랫폼은 비효율 min_nights 호스트에게 최적화 추천 기능 제공",
+        "hypothesis_link": ["H4"]
+      },
+      {
+        "rank": 7,
+        "insight": "RevPAR 트렌드 92.3% 상승 — 성장 국면의 시장",
+        "evidence": "l90d_revpar가 ttm_revpar/4 대비 평균 +312.2% 성장. 2025-10-16 규제 마감일 전 활성화 공급 집중 가능성.",
+        "action": "상승 추세 숙소는 가격 인상 타이밍. 하락 추세 숙소(7.7%)는 점유율 확보 우선 전략",
+        "hypothesis_link": []
+      }
+    ],
+    "platform_perspective_insights": [
+      {
+        "rank": 1,
+        "insight": "자치구별 RevPAR 격차 극심 — 상위 vs 하위 무한대 차이",
+        "evidence": "Gangdong-gu 중위 ₩22,211 vs Dongjak-gu ₩0 (중위값). 상위 5개구(강동, 광진, 종로, 마포, 용산)가 집중적 고RevPAR 형성.",
+        "action": "플랫폼은 자치구별 차별화 전략: 상위구는 품질 유지, 하위구는 수요 창출 마케팅",
+        "hypothesis_link": ["H6"]
+      },
+      {
+        "rank": 2,
+        "insight": "마포구 공급 집중(6,699건, 21%) — 공급 과잉으로 RevPAR 압박",
+        "evidence": "마포구 리스팅 수 최다이나 중위 RevPAR ₩15,244(4위). H6 가설: 공급-RevPAR 역관계 예상 (Spearman rho < -0.3).",
+        "action": "마포구 신규 호스트 유치 억제, 기존 호스트 품질 향상 프로그램 우선화. 공급 희소 구(강동, 도봉, 양천)는 신규 호스트 확보 타겟",
+        "hypothesis_link": ["H6"]
+      },
+      {
+        "rank": 3,
+        "insight": "Dormant 비율 54.3%(17,399건) — 시장 건전성 위기",
+        "evidence": "refined_status: Dormant 17,399 / Active 14,399. 동작구 중위 RevPAR ₩0 — Dormant 집중 가능성. H9: dormant_ratio와 Active RevPAR 음의 상관 예상.",
+        "action": "Dormant 전환 방지 조기 경보 시스템 구축. 첫 3개월 RevPAR=0 유지 숙소에 자동 개입(가격 최적화 추천, 운영 컨설팅)",
+        "hypothesis_link": ["H9"]
+      },
+      {
+        "rank": 4,
+        "insight": "district_superhost_rate 0.268(동작)~0.598(강동) — 자치구별 품질 편차",
+        "evidence": "슈퍼호스트 비율 높은 자치구가 RevPAR도 높은 패턴 예상(benchmark에서 개인 역량 vs 밀집 효과 분석 필요).",
+        "action": "슈퍼호스트 비율 낮은 자치구(동작, 동대문, 금천)는 호스트 교육 프로그램 우선 배치",
+        "hypothesis_link": ["H1"]
+      },
+      {
+        "rank": 5,
+        "insight": "POI 초근접(300m 이내) 비율 90% — 입지 프리미엄 검증 필요",
+        "evidence": "nearest_poi_dist_km 중위값=0.102km. 대부분 초근접 위치이므로 거리 구간별 RevPAR 차이는 작을 수 있음. POI 유형 효과가 더 중요할 수 있음.",
+        "action": "H7 검증: POI 유형(관광명소 vs 교통허브)별 RevPAR 비교 우선. 숙소 리스팅 설명에서 POI 유형 강조 가이드 제공",
+        "hypothesis_link": ["H7"]
+      },
+      {
+        "rank": 6,
+        "insight": "자치구 인구와 RevPAR의 비선형 관계 — 관광 특화 저인구 자치구 RevPAR 우위",
+        "evidence": "ttm_pop rho=-0.037 (약한 음의 상관). 종로(역사관광), 중구(서울 중심부)는 인구 적지만 RevPAR 상위. H8 예측 부합.",
+        "action": "인구 × POI 인프라 결합 '에어비앤비 적합성 점수' 개발로 시장 분류 지도 제작",
+        "hypothesis_link": ["H8"]
+      }
+    ],
+    "conflicts_resolved": [
+      {
+        "conflict": "entire_home이 RevPAR 절대값 최고 vs 공급 과잉 자치구(마포)의 RevPAR 압박",
+        "resolution": "room_type 선택은 호스트 개인 전략(entire_home 우위), 자치구 선택은 플랫폼 공급 전략. 마포구 entire_home은 공급 경쟁이 심화되어 개별 숙소 레벨에서는 entire_home 우위가 유지되나, 자치구 전체 RevPAR는 경쟁으로 압박됨. 두 관점을 독립적으로 분석.",
+        "recommendation": "호스트: 마포구에서도 entire_home+슈퍼호스트 조합은 경쟁력 유지. 플랫폼: 마포구 신규 entire_home 유치 대신 기존 품질 향상."
+      },
+      {
+        "conflict": "RevPAR 트렌드 92.3% 상승 vs Dormant 54.3% 비율 공존",
+        "resolution": "Dormant 숙소는 RevPAR=0으로 트렌드 계산에서 분모 역할. Active+Operating 서브셋은 성장 국면, 전체 시장은 공급 비효율 공존. 분석 스코프 분리가 핵심.",
+        "recommendation": "호스트 관점은 Active+Operating 14,399건 기준 분석. 플랫폼 관점은 전체 32,061건 Dormant 패턴 분석 병행."
+      },
+      {
+        "conflict": "POI 거리 음의 상관(rho=-0.070) — 가까울수록 RevPAR 낮다?",
+        "resolution": "도심 초근접 저가 숙소의 영향. POI 유형을 통제하면 관광명소 근접은 양의 효과일 가능성. 혼합 효과(Simpson's Paradox 유의).",
+        "recommendation": "POI 유형별 층화 분석 필수(H7). 전체 거리 상관은 해석에 주의."
+      }
+    ],
+    "hypothesis_validation": [
+      {
+        "id": "H1",
+        "title": "슈퍼호스트 + 즉시예약 RevPAR 프리미엄",
+        "validatable": true,
+        "pre_evidence": "Mann-Whitney U 이미 유의미(p<0.001). 슈퍼호스트 중위 RevPAR +83.1% 확인. instant_book 교차효과는 추가 분석 필요.",
+        "model_relevance": "superhost, instant_book 피처가 모델에서 높은 SHAP value 예상",
+        "priority": 1
+      },
+      {
+        "id": "H2",
+        "title": "room_type별 ADR vs 점유율 구조",
+        "validatable": true,
+        "pre_evidence": "Kruskal-Wallis p<0.001. entire_home RevPAR ₩20,008 vs private_room ₩1,252. ADR × Occupancy 분해 분석 필요.",
+        "model_relevance": "room_type이 가장 중요한 범주형 피처 중 하나로 예상",
+        "priority": 2
+      },
+      {
+        "id": "H3",
+        "title": "사진 수 · 평점의 비선형 RevPAR 효과",
+        "validatable": true,
+        "pre_evidence": "photos_count rho=0.353, rating_overall rho=0.418. 비선형 임계값(threshold) 구간은 분위 분석 필요.",
+        "model_relevance": "photos_tier(4분위 파생변수)로 비선형 효과 포착",
+        "priority": 4
+      },
+      {
+        "id": "H4",
+        "title": "min_nights 최적 설정 비선형 효과",
+        "validatable": true,
+        "pre_evidence": "min_nights 중위값=2, 극도의 우편향(skewness=13.57). 구간별 분석 미완.",
+        "model_relevance": "min_nights는 log1p 변환 후 모델 투입 권장",
+        "priority": 6
+      },
+      {
+        "id": "H5",
+        "title": "추가요금 정책 × guests_group 상호작용",
+        "validatable": true,
+        "pre_evidence": "extra_guest_fee_policy=1 중위 RevPAR ₩29,821 vs 0 ₩6,805. guests_group 층화 분석 미완.",
+        "model_relevance": "extra_guest_fee_policy × guests_group 교호작용항 고려",
+        "priority": 8
+      },
+      {
+        "id": "H6",
+        "title": "공급 집중도와 RevPAR 역관계",
+        "validatable": true,
+        "pre_evidence": "district_listing_count(파생변수) 생성 완료. 마포 6,699건이나 RevPAR 중위 4위. 상관계수 계산 필요.",
+        "model_relevance": "플랫폼 모델의 핵심 피처. district_listing_count 중요도 높을 것",
+        "priority": 3
+      },
+      {
+        "id": "H7",
+        "title": "POI 유형별 근접성 효과",
+        "validatable": true,
+        "pre_evidence": "nearest_poi_dist_km rho=-0.070 (전체, 혼합 효과). POI 유형별 층화 분석 필요.",
+        "model_relevance": "nearest_poi_type_name, poi_dist_category 피처 SHAP 분석에서 중요도 확인 필요",
+        "priority": 5
+      },
+      {
+        "id": "H8",
+        "title": "자치구 인구와 RevPAR 비선형 관계",
+        "validatable": true,
+        "pre_evidence": "ttm_pop rho=-0.037 (약한 음의 상관). 자치구 단위(n=25) 분석 필요.",
+        "model_relevance": "플랫폼 모델에서 ttm_pop 피처 포함. 비선형성은 분위 그룹으로 확인",
+        "priority": 7
+      },
+      {
+        "id": "H9",
+        "title": "Dormant 비율과 시장 건전성",
+        "validatable": true,
+        "pre_evidence": "refined_status 분포: Dormant 54.3%. dormant_ratio 파생변수 생성 필요(06_platform_insights에서).",
+        "model_relevance": "플랫폼 인사이트 노트북의 핵심 분석. 클러스터링과 연계",
+        "priority": 9
+      }
+    ],
+    "overall_assessment": "서울 에어비앤비 시장은 점유율 드라이버 중심의 RevPAR 구조(rho=0.955)로, 슈퍼호스트 지위와 room_type이 가장 강력한 RevPAR 차별화 요인이다. 전체 54.3% Dormant로 시장 비효율이 극심하지만, Active+Operating 서브셋은 92.3%가 성장 추세를 보여 실질 운영 시장은 건강하다. 자치구별 RevPAR 격차는 공급 집중도보다 관광 인프라와 위치 특성이 더 강하게 작용할 것으로 예상된다. 모델링 우선순위: (1) 호스트 RevPAR 예측 모델(ttm_occupancy 누수 주의), (2) 자치구 클러스터링으로 시장 세그먼트 식별, (3) SHAP 분석으로 호스트 행동 가이드 생성."
+  },
+  "modeling_strategy": {
+    "host_perspective": {
+      "problem_type": "regression",
+      "target": "log_ttm_revpar",
+      "target_note": "log1p(ttm_revpar) 사용. skewness=3.76 → log1p 변환으로 잔차 정규화",
+      "subset": "active_operating_14399",
+      "subset_filter": "refined_status=='Active' AND operation_status=='Operating'",
+      "features": [
+        "room_type",
+        "superhost",
+        "instant_book",
+        "bedrooms_group",
+        "baths_group",
+        "guests_group",
+        "min_nights",
+        "extra_guest_fee_policy",
+        "rating_overall",
+        "photos_count",
+        "num_reviews",
+        "nearest_poi_dist_km",
+        "nearest_poi_type_name",
+        "district",
+        "price_efficiency",
+        "photos_tier",
+        "review_rate",
+        "poi_dist_category",
+        "revpar_vs_district_median",
+        "district_median_revpar",
+        "district_listing_count",
+        "district_superhost_rate",
+        "district_operating_rate",
+        "district_entire_home_rate",
+        "ttm_pop",
+        "revpar_trend"
+      ],
+      "exclude_features": [
+        "ttm_revpar",
+        "l90d_revpar",
+        "l90d_occupancy",
+        "l90d_avg_rate",
+        "l90d_revenue",
+        "ttm_occupancy",
+        "ttm_avg_rate",
+        "ttm_revenue",
+        "exng",
+        "ttm_exng",
+        "nearest_poi_image",
+        "listing_type",
+        "nearest_poi_name",
+        "nearest_poi_addr",
+        "nearest_poi_lat",
+        "nearest_poi_lng",
+        "latitude_masked",
+        "longitude_masked",
+        "revpar_percentile",
+        "is_active_operating",
+        "log_ttm_revpar"
+      ],
+      "exclude_reasons": {
+        "ttm_occupancy|ttm_avg_rate|ttm_revenue": "타겟 누수(RevPAR = ADR × Occupancy)",
+        "l90d_*": "타겟 누수 (현재 및 최근 성과 정보)",
+        "exng|ttm_exng": "상수 컬럼",
+        "nearest_poi_image": "23.9% 결측",
+        "listing_type": "cardinality=94, room_type으로 대체",
+        "revpar_percentile": "타겟 기반 파생 — 누수",
+        "log_ttm_revpar": "타겟 자체",
+        "is_active_operating": "서브셋 필터로 사용, 피처로 불필요"
+      },
+      "encoding": {
+        "room_type": "OneHotEncoder (4개 범주)",
+        "district": "TargetEncoder (25개 자치구, CV fold 내부 적용)",
+        "nearest_poi_type_name": "OneHotEncoder (8개 범주)",
+        "bedrooms_group|baths_group|guests_group": "OrdinalEncoder",
+        "photos_tier": "OrdinalEncoder (하=0, 중하=1, 중상=2, 상=3)",
+        "poi_dist_category": "OrdinalEncoder (초근접=0, 근접=1, 보통=2, 원거리=3)",
+        "superhost|instant_book": "BooleanEncoder (0/1)"
+      },
+      "numeric_transforms": {
+        "min_nights": "log1p (skewness=13.57)",
+        "num_reviews": "log1p (skewness=8.10)",
+        "price_efficiency": "이미 99th percentile clip 적용",
+        "review_rate": "이미 99th percentile clip 적용"
+      },
+      "models": [
+        {
+          "rank": 1,
+          "model": "LightGBM",
+          "reason": "빠른 학습, 범주형 피처 직접 처리, 비선형 관계 포착 우수. 32K 데이터에서 최고 성능 예상. SHAP 연동 용이.",
+          "params": {
+            "n_estimators": 500,
+            "learning_rate": 0.05,
+            "max_depth": 6,
+            "num_leaves": 31,
+            "subsample": 0.8,
+            "colsample_bytree": 0.8,
+            "reg_alpha": 0.1,
+            "reg_lambda": 1.0,
+            "random_state": 42,
+            "n_jobs": -1,
+            "categorical_feature": "auto"
+          },
+          "expected_r2_range": "0.65~0.80"
+        },
+        {
+          "rank": 2,
+          "model": "RandomForestRegressor",
+          "reason": "앙상블 기반 비선형 처리, 이상치에 강건. SHAP feature importance 해석 직관적. 기준 모델 대비 성능 검증.",
+          "params": {
+            "n_estimators": 300,
+            "max_depth": 15,
+            "min_samples_leaf": 5,
+            "max_features": 0.7,
+            "n_jobs": -1,
+            "random_state": 42
+          },
+          "expected_r2_range": "0.60~0.75"
+        },
+        {
+          "rank": 3,
+          "model": "Ridge Regression",
+          "reason": "기준 모델(baseline). log1p 타겟에서 선형 가정 부분 성립. 계수 해석으로 단순 인사이트 제공. L2 정규화로 다중공선성 완화.",
+          "params": {
+            "alpha": 1.0,
+            "fit_intercept": true,
+            "normalize": false,
+            "max_iter": 1000,
+            "random_state": 42
+          },
+          "preprocessing_note": "PolynomialFeatures(degree=2) 또는 SplineTransformer 추가 시 비선형 효과 포착 가능",
+          "expected_r2_range": "0.35~0.55"
+        }
+      ],
+      "validation": "KFold(n_splits=5, shuffle=True, random_state=42)",
+      "evaluation_metrics": ["R2", "MAE", "RMSE", "MAPE"],
+      "evaluation_notes": {
+        "primary": "R2 (설명력)",
+        "secondary": "MAE (₩ 단위 오차 해석)",
+        "note": "log1p 예측값을 expm1으로 역변환 후 원 스케일 MAE·RMSE 계산"
+      },
+      "shap_analysis": true,
+      "shap_config": {
+        "explainer": "shap.TreeExplainer (LightGBM, RandomForest)",
+        "n_samples": 500,
+        "plots": ["summary_plot", "bar_plot", "dependence_plot (top 5 features)", "waterfall (개별 사례 3개)"]
+      },
+      "adr_occupancy_ratio": {
+        "note": "adr_occupancy_ratio = ttm_avg_rate / (ttm_occupancy + 1e-6). price_efficiency와 동일 개념. features 목록의 price_efficiency로 포함됨."
+      }
+    },
+    "platform_perspective": {
+      "problem_type": "clustering + regression",
+      "analysis_unit": "district_25",
+      "analysis_stages": [
+        "Stage 1: 자치구별 집계 통계 생성 (mean, median, count, std)",
+        "Stage 2: K-Means 클러스터링 (k=4) + Silhouette Score 검증",
+        "Stage 3: 클러스터별 프로파일링 및 명명",
+        "Stage 4: 클러스터별 RevPAR 예측 회귀 모델",
+        "Stage 5: 클러스터 기반 플랫폼 전략 인사이트"
+      ],
+      "cluster_k": 4,
+      "cluster_k_rationale": "Elbow Method + Silhouette Score 기반. 비즈니스 해석 용이성 고려 (프리미엄관광/성장주거/중가균형/가격민감 4분류)",
+      "cluster_features": [
+        "district_median_revpar",
+        "district_listing_count",
+        "district_superhost_rate",
+        "district_operating_rate",
+        "district_entire_home_rate",
+        "ttm_pop",
+        "nearest_poi_dist_km_mean",
+        "ttm_occupancy_median",
+        "ttm_avg_rate_median",
+        "dormant_ratio"
+      ],
+      "cluster_preprocessing": "StandardScaler (z-score 정규화). ttm_pop, district_listing_count는 log1p 변환 후 스케일링.",
+      "regression_features": [
+        "district_listing_count",
+        "district_superhost_rate",
+        "district_operating_rate",
+        "district_entire_home_rate",
+        "ttm_pop",
+        "nearest_poi_dist_km_mean",
+        "poi_type_tourism_ratio",
+        "dormant_ratio"
+      ],
+      "regression_target": "district_median_revpar (자치구별 Active+Operating 중위 RevPAR)",
+      "regression_note": "n=25로 표본이 매우 적음. Ridge/Lasso 등 정규화 모델 필수. LOO-CV (Leave-One-Out) 사용 권장.",
+      "models": [
+        {
+          "rank": 1,
+          "model": "KMeans (sklearn)",
+          "purpose": "자치구 세그먼트 분류",
+          "params": {
+            "n_clusters": 4,
+            "init": "k-means++",
+            "n_init": 10,
+            "max_iter": 300,
+            "random_state": 42
+          }
+        },
+        {
+          "rank": 2,
+          "model": "Ridge Regression (자치구 단위)",
+          "purpose": "자치구 RevPAR 예측 (n=25, 소표본)",
+          "params": {
+            "alpha": 1.0,
+            "fit_intercept": true
+          },
+          "validation": "LeaveOneOut (LOO-CV)"
+        },
+        {
+          "rank": 3,
+          "model": "LightGBM (listing 단위 자치구 집계 활용)",
+          "purpose": "개별 리스팅의 자치구 맥락 반영 RevPAR 예측",
+          "params": {
+            "n_estimators": 300,
+            "learning_rate": 0.05,
+            "random_state": 42
+          }
+        }
+      ],
+      "cluster_naming_scheme": {
+        "cluster_1": "프리미엄 관광거점 (고RevPAR, 저공급, 관광 특화)",
+        "cluster_2": "성장형 주거상권 (중RevPAR, 고공급, 주거+관광 혼합)",
+        "cluster_3": "중가 균형시장 (중위 RevPAR, 균형 공급)",
+        "cluster_4": "가격민감 외곽형 (저RevPAR, 저공급, 주거 중심)"
+      }
+    }
+  },
+  "execution_plan": {
+    "notebooks": [
+      {
+        "order": 0,
+        "filename": "00_quick_eda.ipynb",
+        "perspective": "common",
+        "description": "전체 데이터 개요 및 핵심 지표 스캔. 32,061건 × 56 컬럼(파생변수 포함) 전체 구조 파악. 두 관점 공통 기초 분석.",
+        "key_analyses": [
+          "데이터 shape, dtypes, 결측치 요약",
+          "ttm_revpar 분포 (전체 vs Active+Operating)",
+          "주요 범주형 변수 분포 (room_type, district, refined_status)",
+          "Spearman 상관계수 히트맵",
+          "KPI 벤치마크 요약 테이블"
+        ],
+        "estimated_cells": 15,
+        "output_key_vars": ["df", "df_ao", "BENCHMARKS"]
+      },
+      {
+        "order": 1,
+        "filename": "01_host_eda.ipynb",
+        "perspective": "host",
+        "description": "숙소 특성별 RevPAR 분포 및 패턴 심층 분석. 가설 H1~H5 사전 탐색. Active+Operating 서브셋 기준.",
+        "key_analyses": [
+          "RevPAR 분위별 숙소 특성 히트맵 (H3 사전 탐색)",
+          "Superhost × instant_book 4개 그룹 RevPAR 박스플롯 (H1)",
+          "room_type별 ADR vs Occupancy 스캐터 (H2)",
+          "사진 수 구간별 RevPAR 막대/박스 (H3)",
+          "min_nights 구간별 RevPAR line chart (H4)",
+          "extra_guest_fee_policy × guests_group 교차 (H5)"
+        ],
+        "estimated_cells": 25,
+        "output_key_vars": ["df_ao", "host_revpar_stats", "superhost_cross_tab"]
+      },
+      {
+        "order": 2,
+        "filename": "02_host_preprocessing.ipynb",
+        "perspective": "host",
+        "description": "호스트 관점 모델링 전처리. Active+Operating 서브셋 기준 인코딩, 스케일링, 피처 최종 선택.",
+        "key_analyses": [
+          "Active+Operating 서브셋 확인 및 로드",
+          "제외 컬럼 처리 (타겟 누수, 상수, 결측)",
+          "범주형 인코딩 (OneHot/Target/Ordinal)",
+          "수치형 변환 (log1p for min_nights, num_reviews)",
+          "타겟 생성: log_ttm_revpar",
+          "학습/테스트 분리 (80/20, random_state=42)",
+          "피처 중요도 사전 스크리닝 (SelectKBest)"
+        ],
+        "estimated_cells": 20,
+        "output_key_vars": ["X_train", "X_test", "y_train", "y_test", "preprocessor", "feature_names"]
+      },
+      {
+        "order": 3,
+        "filename": "03_host_modeling.ipynb",
+        "perspective": "host",
+        "description": "RevPAR 예측 모델링 (Ridge, RandomForest, LightGBM) + 5-Fold CV + SHAP 분석. 호스트 액션 가이드 도출.",
+        "key_analyses": [
+          "Ridge Regression baseline 학습 + 계수 시각화",
+          "RandomForest 학습 + OOB Score",
+          "LightGBM 학습 + learning curve",
+          "5-Fold CV 성능 비교 (R2, MAE, RMSE)",
+          "최적 모델 SHAP summary plot",
+          "SHAP dependence plot (top 5 features)",
+          "개별 예측 해석 (waterfall, 고/중/저 RevPAR 3케이스)"
+        ],
+        "estimated_cells": 25,
+        "output_key_vars": ["model_ridge", "model_rf", "model_lgbm", "cv_results", "shap_values", "feature_importance"]
+      },
+      {
+        "order": 4,
+        "filename": "04_platform_eda.ipynb",
+        "perspective": "platform",
+        "description": "자치구별 RevPAR 비교 및 트렌드 분석. 가설 H6~H9 사전 탐색. 전체 32,061건 + Active+Operating 비교.",
+        "key_analyses": [
+          "자치구별 RevPAR 수평 막대 (전체 기준선 vs Active 기준선)",
+          "자치구별 Dormant 비율 vs Active RevPAR 스캐터 (H9)",
+          "자치구별 리스팅 수 vs 중위 RevPAR 스캐터 (H6)",
+          "자치구별 인구 vs RevPAR 버블 차트 (H8)",
+          "POI 유형별 RevPAR 수평 바차트 (H7)",
+          "자치구별 점유율 × ADR 포지셔닝 맵",
+          "refined_status 구성 비율 스택 바 (25개구)"
+        ],
+        "estimated_cells": 25,
+        "output_key_vars": ["district_agg", "district_dormant", "poi_stats", "platform_benchmarks"]
+      },
+      {
+        "order": 5,
+        "filename": "05_platform_clustering.ipynb",
+        "perspective": "platform",
+        "description": "자치구 K-Means 클러스터링 (k=4) + 프로파일링 + 회귀 모델. 자치구 유형별 전략 기반 수립.",
+        "key_analyses": [
+          "자치구별 집계 통계 생성 (7개 지표)",
+          "Elbow Method + Silhouette Score (k=2~8)",
+          "K-Means(k=4) 클러스터링 결과",
+          "클러스터별 특성 히트맵 (정규화)",
+          "클러스터별 자치구 목록 및 명명",
+          "자치구 포지셔닝 산점도 (점유율 vs RevPAR, 클러스터 색상)",
+          "Ridge 회귀로 자치구 RevPAR 예측 (LOO-CV)"
+        ],
+        "estimated_cells": 22,
+        "output_key_vars": ["district_clusters", "km_model", "cluster_profiles", "district_ridge_model"]
+      },
+      {
+        "order": 6,
+        "filename": "06_platform_insights.ipynb",
+        "perspective": "platform",
+        "description": "플랫폼 운영 인사이트 종합 + 액션 아이템. 클러스터별 차별화 전략, 시장 건전성 지표, 정책 우선순위.",
+        "key_analyses": [
+          "클러스터별 RevPAR 성과 비교 대시보드",
+          "dormant_ratio 계산 및 자치구별 시장 건전성 지도",
+          "자치구별 슈퍼호스트 비율 vs RevPAR 상관 (H1 플랫폼 관점)",
+          "신규 호스트 유치 타겟 자치구 추천 (공급-수요 갭)",
+          "Dormant 전환 위험 자치구 조기경보 조건 정의",
+          "플랫폼 정책 우선순위 매트릭스 (RevPAR × Dormant비율)",
+          "최종 액션 아이템 체크리스트 (호스트 + 플랫폼)"
+        ],
+        "estimated_cells": 20,
+        "output_key_vars": ["dormant_ratio_by_district", "action_matrix", "policy_priority_df"]
+      }
+    ]
+  },
+  "cell_level_plan": {
+    "00_quick_eda.ipynb": [
+      {
+        "cell_num": 0,
+        "type": "markdown",
+        "purpose": "노트북 제목 및 분석 개요",
+        "content_hint": "# 서울 에어비앤비 RevPAR 분석 — 빠른 EDA 개요\n분석 목적, 데이터 개요(32,061 × 56), 두 관점(호스트/플랫폼) 설명"
+      },
+      {
+        "cell_num": 1,
+        "type": "code",
+        "purpose": "상수 및 경로 설정 (Constants injection)",
+        "content_hint": "DOMAIN, CSV_PATH (seoul_airbnb_features.csv), RANDOM_SEED=42, KPI benchmarks dict, font settings (AppleGothic), 색상 팔레트",
+        "key_variables": ["CSV_PATH", "RANDOM_SEED", "BENCHMARKS", "FONT"]
+      },
+      {
+        "cell_num": 2,
+        "type": "code",
+        "purpose": "라이브러리 임포트 및 데이터 로드",
+        "content_hint": "pandas, numpy, matplotlib, seaborn, warnings 임포트. pd.read_csv(CSV_PATH). df.shape, dtypes 확인.",
+        "key_variables": ["df", "df.shape"]
+      },
+      {
+        "cell_num": 3,
+        "type": "code",
+        "purpose": "결측치 및 상수 컬럼 확인",
+        "content_hint": "df.isnull().sum() / len(df) * 100. 결측 상위 컬럼 표시. nearest_poi_image 23.9%, exng/ttm_exng 상수 확인.",
+        "key_variables": ["missing_summary", "constant_cols"]
+      },
+      {
+        "cell_num": 4,
+        "type": "code",
+        "purpose": "Active+Operating 서브셋 생성",
+        "content_hint": "df_ao = df[(df.refined_status=='Active') & (df.operation_status=='Operating')]. len(df_ao) 확인 (14,399건 예상).",
+        "key_variables": ["df_ao", "ao_ratio"]
+      },
+      {
+        "cell_num": 5,
+        "type": "code",
+        "purpose": "ttm_revpar 분포 시각화 (2×2 subplot)",
+        "content_hint": "fig, axes = plt.subplots(2,2,figsize=(14,8)). 전체/AO × 원본/log1p 4개 히스토그램. 중위값 수직선. AppleGothic 폰트.",
+        "key_variables": ["fig_distribution"]
+      },
+      {
+        "cell_num": 6,
+        "type": "code",
+        "purpose": "KPI 벤치마크 요약 테이블 출력",
+        "content_hint": "DataFrame: 전체 중위 ₩8,868 / AO 중위 ₩47,850 / Superhost 프리미엄 +83.1% / entire_home ₩75,137 / private_room ₩29,003. 상위 3개 자치구 포함.",
+        "key_variables": ["kpi_summary_df"]
+      },
+      {
+        "cell_num": 7,
+        "type": "code",
+        "purpose": "주요 범주형 변수 분포 (2×2 bar chart)",
+        "content_hint": "fig, axes = plt.subplots(2,2,figsize=(14,8)). room_type, refined_status, superhost, operation_status 카운트 바차트.",
+        "key_variables": ["fig_categorical"]
+      },
+      {
+        "cell_num": 8,
+        "type": "code",
+        "purpose": "Spearman 상관계수 수평 바차트",
+        "content_hint": "numeric_vars 7개 vs ttm_revpar. 양수 녹색 / 음수 빨강 바. rho 값 레이블. ttm_occupancy 압도적 우위 강조.",
+        "key_variables": ["corr_df", "fig_correlation"]
+      },
+      {
+        "cell_num": 9,
+        "type": "code",
+        "purpose": "자치구별 RevPAR 수평 막대 (top/bottom)",
+        "content_hint": "district_stats 25개 자치구 중위 RevPAR. RdYlGn 그라데이션. 전체 기준선(₩8,868)과 AO 기준선(₩47,850) 수직선.",
+        "key_variables": ["district_stats", "fig_district_revpar"]
+      },
+      {
+        "cell_num": 10,
+        "type": "code",
+        "purpose": "파생변수 14개 요약 통계",
+        "content_hint": "NEW_FEATURES 리스트 iterate. 타입별 통계 출력. revpar_trend (92.3% 양수), is_active_operating (44.9%), poi_dist_category (초근접 90%).",
+        "key_variables": ["derived_summary"]
+      },
+      {
+        "cell_num": 11,
+        "type": "code",
+        "purpose": "revpar_trend vs ttm_revpar 산점도",
+        "content_hint": "Active+Operating 서브셋. x=revpar_trend (성장률), y=log1p(ttm_revpar). 색상=room_type. 양수/음수 구분선.",
+        "key_variables": ["fig_trend_scatter"]
+      },
+      {
+        "cell_num": 12,
+        "type": "code",
+        "purpose": "결측치 패턴 시각화 (Heatmap)",
+        "content_hint": "df[주요컬럼].isnull()을 seaborn heatmap. nearest_poi_image 결측 패턴 시각화. 결측 무관 분석 확인.",
+        "key_variables": ["fig_missing"]
+      },
+      {
+        "cell_num": 13,
+        "type": "code",
+        "purpose": "분석 범위 및 필터 요약 출력",
+        "content_hint": "print 요약: 전체 n, AO n, 제외컬럼 목록, 타겟변수, 모델링 서브셋. 다음 노트북 안내.",
+        "key_variables": ["summary_dict"]
+      },
+      {
+        "cell_num": 14,
+        "type": "markdown",
+        "purpose": "Quick EDA 결론 및 다음 단계 안내",
+        "content_hint": "## 결론\n- 점유율이 RevPAR 압도적 드라이버\n- Superhost 프리미엄 +83.1%\n- 자치구별 RevPAR 극심한 편차\n- 다음: 01_host_eda.ipynb / 04_platform_eda.ipynb"
+      }
+    ],
+    "01_host_eda.ipynb": [
+      {
+        "cell_num": 0,
+        "type": "markdown",
+        "purpose": "노트북 제목 — 호스트 관점 EDA",
+        "content_hint": "# 호스트 관점 RevPAR EDA\n분석 목적: 호스트가 통제 가능한 변수가 RevPAR에 미치는 영향 탐색\n스코프: Active+Operating 14,399건\n가설: H1~H5"
+      },
+      {
+        "cell_num": 1,
+        "type": "code",
+        "purpose": "상수 및 데이터 로드",
+        "content_hint": "CSV_PATH, RANDOM_SEED=42, AppleGothic 폰트. df = pd.read_csv(features.csv). df_ao 생성. BENCHMARK_DICT.",
+        "key_variables": ["df", "df_ao", "BENCHMARK"]
+      },
+      {
+        "cell_num": 2,
+        "type": "markdown",
+        "purpose": "H1 가설 설명 — Superhost × instant_book 효과",
+        "content_hint": "## H1: 슈퍼호스트 + 즉시예약의 RevPAR 프리미엄\n4개 그룹(SH×IB 2×2) 비교. Mann-Whitney U test 예정."
+      },
+      {
+        "cell_num": 3,
+        "type": "code",
+        "purpose": "H1: Superhost × instant_book 4그룹 박스플롯",
+        "content_hint": "df_ao['group'] = superhost + instant_book 조합 4개 레이블. fig, axes = plt.subplots(1,2,figsize=(14,8)). boxplot(showfliers=False). 중위값 어노테이션.",
+        "key_variables": ["fig_h1_box", "h1_group_stats"]
+      },
+      {
+        "cell_num": 4,
+        "type": "code",
+        "purpose": "H1: Mann-Whitney U test 결과 출력",
+        "content_hint": "scipy.stats.mannwhitneyu. SH vs non-SH, IB vs non-IB. Kruskal-Wallis 4그룹. p-value, 중위값 프리미엄 % 계산.",
+        "key_variables": ["h1_test_results", "superhost_premium"]
+      },
+      {
+        "cell_num": 5,
+        "type": "markdown",
+        "purpose": "H2 가설 설명 — room_type별 ADR vs 점유율 구조",
+        "content_hint": "## H2: room_type별 RevPAR 구성 요소\nRevPAR = ADR × Occupancy. entire_home: 고ADR+저점유율 vs private_room: 저ADR+고점유율?"
+      },
+      {
+        "cell_num": 6,
+        "type": "code",
+        "purpose": "H2: room_type별 ADR × Occupancy 버블 스캐터",
+        "content_hint": "fig, axes = plt.subplots(1,2,figsize=(14,8)). 좌: x=ADR중위, y=점유율중위, 버블=리스팅수, 색=room_type. 우: room_type별 RevPAR 바차트. 중위값 레이블.",
+        "key_variables": ["room_type_agg", "fig_h2_scatter"]
+      },
+      {
+        "cell_num": 7,
+        "type": "code",
+        "purpose": "H2: Kruskal-Wallis 검정 결과",
+        "content_hint": "scipy.stats.kruskal(4 room_type 그룹). 사후 검정 Dunn's test (scikit_posthocs). 효과 크기 계산.",
+        "key_variables": ["h2_kruskal", "h2_posthoc"]
+      },
+      {
+        "cell_num": 8,
+        "type": "markdown",
+        "purpose": "H3 가설 설명 — 사진 수와 평점 효과",
+        "content_hint": "## H3: 콘텐츠 품질(사진수·평점)의 RevPAR 기여\n임계값 구간 탐색. 사진 최적 장수 ROI 구간 파악."
+      },
+      {
+        "cell_num": 9,
+        "type": "code",
+        "purpose": "H3: 사진 수 구간별 RevPAR 바차트",
+        "content_hint": "pd.cut(photos_count, bins=[0,10,20,30,50,100,max]). 구간별 중위 RevPAR 바차트. 샘플수 레이블. 최적 구간 강조(빨강 테두리).",
+        "key_variables": ["photos_bins_stats", "fig_h3_photos"]
+      },
+      {
+        "cell_num": 10,
+        "type": "code",
+        "purpose": "H3: 평점 구간별 RevPAR 박스플롯",
+        "content_hint": "pd.cut(rating_overall, bins=[0,4.0,4.5,4.7,4.9,5.01]). 구간별 RevPAR boxplot. 천장효과 확인. Spearman rho 텍스트 표시.",
+        "key_variables": ["rating_bins_stats", "fig_h3_rating"]
+      },
+      {
+        "cell_num": 11,
+        "type": "markdown",
+        "purpose": "H4 가설 설명 — min_nights 비선형 효과",
+        "content_hint": "## H4: 최소숙박일 설정과 RevPAR\nmin_nights 1, 2, 3-4, 5-7, 8-14, 15-30 구간별 비교. RevPAR 최적점 탐색."
+      },
+      {
+        "cell_num": 12,
+        "type": "code",
+        "purpose": "H4: min_nights 구간별 RevPAR line chart",
+        "content_hint": "df_ao[df_ao.min_nights<=30] 필터. 구간 6개. fig,axes=plt.subplots(1,2,figsize=(14,8)). 좌: 점유율/ADR 이중축 line. 우: RevPAR 바차트. room_type별 패널 또는 색상 구분.",
+        "key_variables": ["min_nights_stats", "fig_h4_line"]
+      },
+      {
+        "cell_num": 13,
+        "type": "markdown",
+        "purpose": "H5 가설 설명 — 추가요금 정책 × guests_group",
+        "content_hint": "## H5: 추가인원 요금 정책의 RevPAR 효과\nguests_group='large' 내에서 policy=0 vs 1 비교. 자치구별 이질성 탐색."
+      },
+      {
+        "cell_num": 14,
+        "type": "code",
+        "purpose": "H5: extra_guest_fee_policy 박스플롯 + 자치구별 grouped bar",
+        "content_hint": "fig, axes = plt.subplots(1,2,figsize=(14,8)). 좌: policy 0 vs 1 boxplot(df_ao). 우: 상위 5개 자치구별 policy별 RevPAR 중위값 grouped bar. Mann-Whitney U p-value 표시.",
+        "key_variables": ["extra_fee_stats", "fig_h5"]
+      },
+      {
+        "cell_num": 15,
+        "type": "code",
+        "purpose": "bedrooms_group, baths_group, guests_group별 RevPAR 비교",
+        "content_hint": "fig, axes = plt.subplots(1,3,figsize=(14,5)). 각 그룹 변수별 boxplot. 그룹 기준 RevPAR 분포 확인. 추가 피처로서의 가치 평가.",
+        "key_variables": ["group_revpar_stats", "fig_groups"]
+      },
+      {
+        "cell_num": 16,
+        "type": "code",
+        "purpose": "revpar_percentile 분포 및 분위별 특성 히트맵",
+        "content_hint": "df_ao.revpar_percentile.hist(). 분위(Q1~Q4) 생성. 각 분위별 superhost비율, photos_count평균, rating평균, min_nights평균 히트맵(seaborn). MinMax 정규화.",
+        "key_variables": ["quartile_profile", "fig_quartile_heatmap"]
+      },
+      {
+        "cell_num": 17,
+        "type": "code",
+        "purpose": "revpar_vs_district_median 분포 및 구간별 RevPAR",
+        "content_hint": "x=revpar_vs_district_median (지역 대비 성과). 히스토그램. 1.0 기준선 표시(지역 평균). 상위 10% 리스팅 특성 요약.",
+        "key_variables": ["vs_median_stats", "fig_vs_median"]
+      },
+      {
+        "cell_num": 18,
+        "type": "code",
+        "purpose": "상관계수 심층 분석 (Active+Operating 서브셋 기준)",
+        "content_hint": "df_ao 기준 Spearman 상관. photos_count, rating_overall, num_reviews, min_nights, guests, nearest_poi_dist_km vs ttm_revpar. 바차트 + 신뢰구간.",
+        "key_variables": ["ao_corr_df", "fig_ao_correlation"]
+      },
+      {
+        "cell_num": 19,
+        "type": "code",
+        "purpose": "price_efficiency vs ttm_revpar 산점도",
+        "content_hint": "x=price_efficiency (단위점유율 당 요금), y=log1p(ttm_revpar). hexbin density plot. 색상=room_type. 효율 낮은 고RevPAR 숙소 패턴 확인.",
+        "key_variables": ["fig_price_efficiency"]
+      },
+      {
+        "cell_num": 20,
+        "type": "code",
+        "purpose": "review_rate vs RevPAR 관계",
+        "content_hint": "x=review_rate (투숙 대비 리뷰 비율), y=ttm_revpar. 구간별 평균 RevPAR line chart. 리뷰 참여도와 수익의 관계 파악.",
+        "key_variables": ["review_rate_stats", "fig_review_rate"]
+      },
+      {
+        "cell_num": 21,
+        "type": "code",
+        "purpose": "revpar_trend (성장/하락) 분포 및 RevPAR 연관",
+        "content_hint": "revpar_trend > 0 (성장) / < 0 (하락) 필터. 성장 vs 하락 숙소 RevPAR 분포 비교 boxplot. room_type별 성장 추세 비율 stacked bar.",
+        "key_variables": ["trend_stats", "fig_trend"]
+      },
+      {
+        "cell_num": 22,
+        "type": "code",
+        "purpose": "가설 검증 결과 요약 테이블",
+        "content_hint": "H1~H5 가설별: 검정 방법, p-value, 효과 방향, 통계 유의성, 비즈니스 인사이트 DataFrame 출력.",
+        "key_variables": ["hypothesis_summary_df"]
+      },
+      {
+        "cell_num": 23,
+        "type": "markdown",
+        "purpose": "호스트 EDA 결론 및 모델링 권고",
+        "content_hint": "## 결론\n- H1 확인: Superhost 프리미엄 +83.1%\n- H2 확인: entire_home RevPAR 절대 우위\n- H3: 사진 20~35장 최적 구간 시사\n- H4: min_nights 2~3박 최적 예상\n- H5: 추가요금 정책 활성화 권장(관광구 한정)\n- 다음: 02_host_preprocessing.ipynb"
+      },
+      {
+        "cell_num": 24,
+        "type": "code",
+        "purpose": "EDA 결과 JSON 저장",
+        "content_hint": "host_eda_results = {benchmarks, h1~h5 결과, 주요 통계}. json.dump()로 agents/host_eda_summary.json 저장.",
+        "key_variables": ["host_eda_results"]
+      }
+    ],
+    "02_host_preprocessing.ipynb": [
+      {
+        "cell_num": 0,
+        "type": "markdown",
+        "purpose": "노트북 제목 — 호스트 모델링 전처리",
+        "content_hint": "# 호스트 모델링 전처리\n목적: Active+Operating 서브셋 기준 피처 선택, 인코딩, 스케일링, 타겟 생성"
+      },
+      {
+        "cell_num": 1,
+        "type": "code",
+        "purpose": "상수 및 데이터 로드",
+        "content_hint": "FEATURES_PATH, RANDOM_SEED=42, EXCLUDE_COLS 리스트, TARGET='log_ttm_revpar'. df_ao 생성.",
+        "key_variables": ["df_ao", "EXCLUDE_COLS", "TARGET", "FEATURE_COLS"]
+      },
+      {
+        "cell_num": 2,
+        "type": "code",
+        "purpose": "피처 목록 정의 및 타겟 누수 방지 확인",
+        "content_hint": "FEATURE_COLS = [호스트+위치+파생 변수 목록]. EXCLUDE_COLS = [ttm_occupancy, ttm_avg_rate, l90d_*, exng, ...]. 누수 변수 최종 확인 출력.",
+        "key_variables": ["FEATURE_COLS", "target_leakage_check"]
+      },
+      {
+        "cell_num": 3,
+        "type": "code",
+        "purpose": "수치형 변수 변환 (log1p)",
+        "content_hint": "min_nights_log = np.log1p(df_ao.min_nights). num_reviews_log = np.log1p(df_ao.num_reviews). 변환 전후 분포 비교 히스토그램 (2×2).",
+        "key_variables": ["df_ao_transformed", "fig_transforms"]
+      },
+      {
+        "cell_num": 4,
+        "type": "code",
+        "purpose": "범주형 인코딩 정의",
+        "content_hint": "from sklearn.preprocessing import OneHotEncoder, OrdinalEncoder. sklearn.compose.ColumnTransformer 설계. room_type: OHE. district: TargetEncoder (category_encoders). photos_tier, poi_dist_category: OrdinalEncoder.",
+        "key_variables": ["preprocessor", "cat_transformer", "num_transformer"]
+      },
+      {
+        "cell_num": 5,
+        "type": "code",
+        "purpose": "타겟 생성 및 분포 확인",
+        "content_hint": "y = np.log1p(df_ao.ttm_revpar). y.describe(). plt.hist(y, bins=50). skewness 출력. 0값 비율 확인.",
+        "key_variables": ["y", "target_stats"]
+      },
+      {
+        "cell_num": 6,
+        "type": "code",
+        "purpose": "학습/테스트 분리",
+        "content_hint": "from sklearn.model_selection import train_test_split. X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42). 분리 결과 확인.",
+        "key_variables": ["X_train", "X_test", "y_train", "y_test"]
+      },
+      {
+        "cell_num": 7,
+        "type": "code",
+        "purpose": "전처리 파이프라인 피팅 및 변환",
+        "content_hint": "preprocessor.fit(X_train). X_train_prep = preprocessor.transform(X_train). X_test_prep = preprocessor.transform(X_test). 변환 후 shape 확인.",
+        "key_variables": ["X_train_prep", "X_test_prep", "feature_names_out"]
+      },
+      {
+        "cell_num": 8,
+        "type": "code",
+        "purpose": "이상치 처리 확인 (Winsorizing)",
+        "content_hint": "price_efficiency, review_rate의 clip 적용 확인. 전처리 후 inf, nan 값 존재 여부 확인. 문제 없으면 통과.",
+        "key_variables": ["outlier_check"]
+      },
+      {
+        "cell_num": 9,
+        "type": "code",
+        "purpose": "피처 중요도 사전 스크리닝 (SelectKBest)",
+        "content_hint": "from sklearn.feature_selection import SelectKBest, f_regression. Top 20 피처 바차트. 제거 후보 식별.",
+        "key_variables": ["top_features", "fig_feature_screen"]
+      },
+      {
+        "cell_num": 10,
+        "type": "code",
+        "purpose": "수치형 피처 상관행렬 (다중공선성 확인)",
+        "content_hint": "numeric_corr = X_train_prep[numeric_cols].corr(). seaborn heatmap. 상관 0.9+ 쌍 식별. VIF 계산 (statsmodels.variance_inflation_factor).",
+        "key_variables": ["corr_matrix", "vif_df", "fig_corr_heatmap"]
+      },
+      {
+        "cell_num": 11,
+        "type": "code",
+        "purpose": "5-Fold CV 설정 정의",
+        "content_hint": "from sklearn.model_selection import KFold. cv = KFold(n_splits=5, shuffle=True, random_state=42). 폴드별 인덱스 크기 확인.",
+        "key_variables": ["cv", "fold_sizes"]
+      },
+      {
+        "cell_num": 12,
+        "type": "code",
+        "purpose": "전처리 결과 저장",
+        "content_hint": "np.save('X_train_prep.npy', X_train_prep). joblib.dump(preprocessor, 'preprocessor.pkl'). 저장 파일 목록 출력.",
+        "key_variables": ["saved_files"]
+      },
+      {
+        "cell_num": 13,
+        "type": "markdown",
+        "purpose": "전처리 요약 및 다음 단계 안내",
+        "content_hint": "## 전처리 완료 요약\n- 학습 샘플: n_train, 테스트: n_test\n- 피처 수: n_features\n- 타겟: log1p(ttm_revpar)\n- 다음: 03_host_modeling.ipynb"
+      },
+      {
+        "cell_num": 14,
+        "type": "code",
+        "purpose": "adr_occupancy_ratio 파생 검증",
+        "content_hint": "adr_occupancy_ratio = df_ao.ttm_avg_rate / (df_ao.ttm_occupancy + 1e-6). clip(upper=99th pct). price_efficiency와 동일 개념 확인. 상관 계산.",
+        "key_variables": ["adr_occ_ratio", "adr_occ_corr"]
+      },
+      {
+        "cell_num": 15,
+        "type": "code",
+        "purpose": "필수 피처 최종 확인 (SOP)",
+        "content_hint": "REQUIRED_FEATURES = [revpar_trend, log_ttm_revpar, is_active_operating, adr_occupancy_ratio]. 각 피처 존재 여부 assert. 미존재 시 생성.",
+        "key_variables": ["required_check"]
+      },
+      {
+        "cell_num": 16,
+        "type": "code",
+        "purpose": "전처리된 데이터 샘플 확인",
+        "content_hint": "pd.DataFrame(X_train_prep[:5], columns=feature_names_out). 처음 5행 출력. 값 범위 확인 (정규화 후 z-score 범위 검증).",
+        "key_variables": ["sample_check"]
+      },
+      {
+        "cell_num": 17,
+        "type": "code",
+        "purpose": "피처 엔지니어링 최종 DataFrame 저장",
+        "content_hint": "df_host_model = df_ao[FEATURE_COLS + [TARGET]]. df_host_model.to_csv('data/processed/host_model_ready.csv'). shape 출력.",
+        "key_variables": ["df_host_model"]
+      },
+      {
+        "cell_num": 18,
+        "type": "markdown",
+        "purpose": "전처리 결론",
+        "content_hint": "## 완료\n타겟 누수 제거 완료. 인코딩·스케일링 파이프라인 저장. 모델링 준비 완료."
+      }
+    ],
+    "03_host_modeling.ipynb": [
+      {
+        "cell_num": 0,
+        "type": "markdown",
+        "purpose": "노트북 제목 — 호스트 RevPAR 예측 모델링",
+        "content_hint": "# 호스트 RevPAR 예측 모델링\n목표: Ridge, RandomForest, LightGBM 비교. 5-Fold CV. SHAP 분석으로 호스트 액션 가이드"
+      },
+      {
+        "cell_num": 1,
+        "type": "code",
+        "purpose": "라이브러리 및 전처리 결과 로드",
+        "content_hint": "sklearn, lightgbm, shap 임포트. X_train_prep, X_test_prep, y_train, y_test, preprocessor, cv, feature_names 로드.",
+        "key_variables": ["X_train_prep", "X_test_prep", "y_train", "y_test", "feature_names"]
+      },
+      {
+        "cell_num": 2,
+        "type": "markdown",
+        "purpose": "모델 1 — Ridge Regression (기준 모델)",
+        "content_hint": "## 모델 1: Ridge Regression (Baseline)\n선형 가정. L2 정규화. 계수 해석으로 단순 인사이트 제공."
+      },
+      {
+        "cell_num": 3,
+        "type": "code",
+        "purpose": "Ridge 학습 및 5-Fold CV",
+        "content_hint": "Ridge(alpha=1.0). cross_val_score(cv=cv, scoring='r2'). 5개 폴드 R2 출력. 평균 ± 표준편차.",
+        "key_variables": ["model_ridge", "ridge_cv_scores", "ridge_r2_mean"]
+      },
+      {
+        "cell_num": 4,
+        "type": "code",
+        "purpose": "Ridge 계수 시각화",
+        "content_hint": "coef_df = pd.Series(model_ridge.coef_, index=feature_names).sort_values(). 수평 바차트. 상위/하위 10개 피처 강조. 양수=RevPAR 양의 기여, 음수=음의 기여.",
+        "key_variables": ["coef_df", "fig_ridge_coef"]
+      },
+      {
+        "cell_num": 5,
+        "type": "markdown",
+        "purpose": "모델 2 — RandomForestRegressor",
+        "content_hint": "## 모델 2: Random Forest\n앙상블 비선형 모델. OOB score 활용. 이상치에 강건."
+      },
+      {
+        "cell_num": 6,
+        "type": "code",
+        "purpose": "RandomForest 학습 및 5-Fold CV",
+        "content_hint": "RandomForestRegressor(n_estimators=300, max_depth=15, min_samples_leaf=5, random_state=42). cross_val_score. OOB score 출력.",
+        "key_variables": ["model_rf", "rf_cv_scores", "rf_oob_score"]
+      },
+      {
+        "cell_num": 7,
+        "type": "code",
+        "purpose": "RandomForest 피처 중요도 바차트",
+        "content_hint": "feature_importance_rf = pd.Series(model_rf.feature_importances_, index=feature_names). Top 15 수평 바차트. 누적 중요도 95% 라인 표시.",
+        "key_variables": ["feature_importance_rf", "fig_rf_importance"]
+      },
+      {
+        "cell_num": 8,
+        "type": "markdown",
+        "purpose": "모델 3 — LightGBM (주력 모델)",
+        "content_hint": "## 모델 3: LightGBM (Primary)\n빠른 학습. 범주형 직접 처리. 최고 성능 기대. SHAP 연동."
+      },
+      {
+        "cell_num": 9,
+        "type": "code",
+        "purpose": "LightGBM 학습 및 5-Fold CV",
+        "content_hint": "lgb.LGBMRegressor(n_estimators=500, learning_rate=0.05, max_depth=6, random_state=42). cross_val_score(cv=cv). Learning curve 시각화.",
+        "key_variables": ["model_lgbm", "lgbm_cv_scores", "fig_lgbm_learning_curve"]
+      },
+      {
+        "cell_num": 10,
+        "type": "code",
+        "purpose": "3모델 성능 비교 테이블 + 바차트",
+        "content_hint": "cv_results = DataFrame: [Ridge, RF, LightGBM] × [R2, MAE, RMSE]. 바차트 비교. 최고 모델 강조. test set 최종 성능 포함.",
+        "key_variables": ["cv_results", "fig_model_comparison"]
+      },
+      {
+        "cell_num": 11,
+        "type": "code",
+        "purpose": "최적 모델 테스트셋 평가 (원 스케일)",
+        "content_hint": "y_pred_log = model_lgbm.predict(X_test_prep). y_pred = np.expm1(y_pred_log). y_true = np.expm1(y_test). R2, MAE(원 스케일), RMSE, MAPE 계산.",
+        "key_variables": ["y_pred", "test_metrics", "fig_pred_vs_actual"]
+      },
+      {
+        "cell_num": 12,
+        "type": "code",
+        "purpose": "잔차 분석",
+        "content_hint": "residuals = y_test - y_pred_log. plt.subplots(1,2,figsize=(14,6)). 좌: 잔차 히스토그램(정규성 확인). 우: y_pred vs residuals 산점도(이분산성 확인).",
+        "key_variables": ["residuals", "fig_residuals"]
+      },
+      {
+        "cell_num": 13,
+        "type": "markdown",
+        "purpose": "SHAP 분석 소개",
+        "content_hint": "## SHAP 분석\nSHapley Additive exPlanations. 각 피처가 예측에 미치는 기여도. 호스트 액션 가이드 도출."
+      },
+      {
+        "cell_num": 14,
+        "type": "code",
+        "purpose": "SHAP Explainer 및 값 계산",
+        "content_hint": "explainer = shap.TreeExplainer(model_lgbm). shap_values = explainer.shap_values(X_test_prep[:500]). shap_values.shape 확인.",
+        "key_variables": ["explainer", "shap_values"]
+      },
+      {
+        "cell_num": 15,
+        "type": "code",
+        "purpose": "SHAP Summary Plot (Beeswarm)",
+        "content_hint": "shap.summary_plot(shap_values, X_test_prep[:500], feature_names=feature_names, max_display=20). 피처별 SHAP 분포. AppleGothic 폰트 주의.",
+        "key_variables": ["fig_shap_summary"]
+      },
+      {
+        "cell_num": 16,
+        "type": "code",
+        "purpose": "SHAP Bar Plot (전체 피처 중요도)",
+        "content_hint": "shap.summary_plot(shap_values, X_test_prep[:500], plot_type='bar', feature_names=feature_names, max_display=15). 평균 |SHAP| 기준 순위.",
+        "key_variables": ["fig_shap_bar"]
+      },
+      {
+        "cell_num": 17,
+        "type": "code",
+        "purpose": "SHAP Dependence Plot (Top 5 피처)",
+        "content_hint": "for feat in top5_features: shap.dependence_plot(feat, shap_values, X_test_prep, feature_names). 2×3 서브플롯 구성. 상호작용 피처 자동 선택.",
+        "key_variables": ["fig_shap_dependence"]
+      },
+      {
+        "cell_num": 18,
+        "type": "code",
+        "purpose": "SHAP Waterfall (개별 케이스 해석)",
+        "content_hint": "고RevPAR 케이스, 중RevPAR 케이스, 저RevPAR 케이스 3개 선택. shap.waterfall_plot(explainer.expected_value, shap_values[i]). 각 케이스 해석.",
+        "key_variables": ["fig_shap_waterfall"]
+      },
+      {
+        "cell_num": 19,
+        "type": "code",
+        "purpose": "호스트 액션 가이드 생성",
+        "content_hint": "SHAP 중요도 + 가설 검증 결과 통합. 우선순위 액션 테이블: [피처, SHAP중요도, 호스트제어가능여부, 액션제안, 예상RevPAR증가].",
+        "key_variables": ["host_action_guide"]
+      },
+      {
+        "cell_num": 20,
+        "type": "code",
+        "purpose": "room_type별 RevPAR 예측 범위 시각화",
+        "content_hint": "각 room_type별 테스트셋 예측 RevPAR 분포 boxplot. 실제 vs 예측 비교. 모델의 room_type 구분 능력 확인.",
+        "key_variables": ["fig_roomtype_pred"]
+      },
+      {
+        "cell_num": 21,
+        "type": "code",
+        "purpose": "자치구별 예측 RevPAR vs 실제 비교",
+        "content_hint": "테스트셋에서 자치구별 평균 예측 vs 실제 산점도. 모델의 지역 예측력 확인. 오차가 큰 자치구 식별.",
+        "key_variables": ["district_pred_comparison", "fig_district_pred"]
+      },
+      {
+        "cell_num": 22,
+        "type": "code",
+        "purpose": "모델 결과 및 SHAP 저장",
+        "content_hint": "joblib.dump(model_lgbm, 'models/lgbm_host_revpar.pkl'). np.save('shap_values.npy', shap_values). cv_results.to_csv(). 저장 완료 출력.",
+        "key_variables": ["saved_model_files"]
+      },
+      {
+        "cell_num": 23,
+        "type": "markdown",
+        "purpose": "호스트 모델링 결론 및 최종 인사이트",
+        "content_hint": "## 결론\n- 최고 성능: LightGBM R2=0.XX\n- SHAP Top 피처: [room_type, district, superhost, photos_count, rating_overall]\n- 호스트 최우선 액션: 슈퍼호스트 달성, 사진 20장+ 유지\n- 다음: 04_platform_eda.ipynb"
+      },
+      {
+        "cell_num": 24,
+        "type": "code",
+        "purpose": "모델링 결과 JSON 저장",
+        "content_hint": "host_modeling_results = {모델성능, SHAP top features, 호스트 액션 가이드}. json.dump()로 agents/host_modeling_results.json 저장.",
+        "key_variables": ["host_modeling_results"]
+      }
+    ],
+    "04_platform_eda.ipynb": [
+      {
+        "cell_num": 0,
+        "type": "markdown",
+        "purpose": "노트북 제목 — 플랫폼 관점 EDA",
+        "content_hint": "# 플랫폼 관점 RevPAR EDA\n분석 단위: 자치구(25개). 가설 H6~H9 탐색. 전체 32,061건 포함 분석."
+      },
+      {
+        "cell_num": 1,
+        "type": "code",
+        "purpose": "상수 및 데이터 로드",
+        "content_hint": "CSV_PATH, RANDOM_SEED=42. df = pd.read_csv(). df_ao 생성. BASELINE_ALL=8868, BASELINE_ACTIVE=47850.",
+        "key_variables": ["df", "df_ao", "BASELINES"]
+      },
+      {
+        "cell_num": 2,
+        "type": "code",
+        "purpose": "자치구별 집계 통계 생성",
+        "content_hint": "district_agg = df.groupby('district').agg({ttm_revpar:[median,mean,count], ttm_occupancy:median, ttm_avg_rate:median, superhost:mean}). df_ao 기준 Active 집계 별도 생성.",
+        "key_variables": ["district_agg", "district_active_agg"]
+      },
+      {
+        "cell_num": 3,
+        "type": "code",
+        "purpose": "H6: 자치구 리스팅 수 vs RevPAR 산점도",
+        "content_hint": "x=district_listing_count, y=district_median_revpar(Active기준). 자치구명 레이블. Spearman rho 계산. 회귀선. H6 가설 검증.",
+        "key_variables": ["h6_spearman", "fig_h6_scatter"]
+      },
+      {
+        "cell_num": 4,
+        "type": "code",
+        "purpose": "자치구별 RevPAR 수평 막대 + 기준선",
+        "content_hint": "25개 자치구 정렬. 색상: Active 기준선 초과=주황, 전체 기준선 초과=노랑, 미만=회색. 두 기준선 수직선 표시.",
+        "key_variables": ["fig_district_benchmark"]
+      },
+      {
+        "cell_num": 5,
+        "type": "code",
+        "purpose": "H9: dormant_ratio 계산 및 시각화",
+        "content_hint": "dormant_ratio = district별 refined_status='Dormant' 수 / 전체 리스팅 수. Spearman(dormant_ratio, Active_RevPAR). 산점도 + 회귀선.",
+        "key_variables": ["dormant_ratio_df", "h9_spearman", "fig_h9"]
+      },
+      {
+        "cell_num": 6,
+        "type": "code",
+        "purpose": "refined_status 구성 스택 바 (25개 자치구)",
+        "content_hint": "피벗 테이블 district × refined_status. Active RevPAR 내림차순 정렬. stacked bar chart. Active비율 선(이중축).",
+        "key_variables": ["status_pivot", "fig_status_stack"]
+      },
+      {
+        "cell_num": 7,
+        "type": "code",
+        "purpose": "H8: 자치구 인구 vs RevPAR 버블 산점도",
+        "content_hint": "x=ttm_pop, y=district_median_revpar(Active). 버블=리스팅수. 색상=dominant POI 유형. Spearman rho 표시. 종로/중구 특별 레이블.",
+        "key_variables": ["h8_spearman", "fig_h8_bubble"]
+      },
+      {
+        "cell_num": 8,
+        "type": "code",
+        "purpose": "H7: POI 유형별 RevPAR 비교",
+        "content_hint": "df_ao.groupby('nearest_poi_type_name').agg(median_revpar, count). 수평 바차트 + 박스플롯 (2×1). Kruskal-Wallis p-value 표시.",
+        "key_variables": ["poi_type_stats", "h7_kruskal", "fig_h7"]
+      },
+      {
+        "cell_num": 9,
+        "type": "code",
+        "purpose": "H7: POI 거리 구간별 RevPAR (자치구별 교차)",
+        "content_hint": "poi_dist_category × district heatmap. 셀값=RevPAR 중위값. RdYlGn colormap. H7 세부 가설 검증.",
+        "key_variables": ["poi_district_heatmap", "fig_h7_heatmap"]
+      },
+      {
+        "cell_num": 10,
+        "type": "code",
+        "purpose": "자치구별 점유율 × ADR 포지셔닝 맵",
+        "content_hint": "x=ttm_avg_rate 중위, y=ttm_occupancy 중위. 버블=리스팅수. 색=RevPAR 수준(RdYlGn). 사분면 구분선(중앙값). 자치구명 어노테이션.",
+        "key_variables": ["fig_positioning_map"]
+      },
+      {
+        "cell_num": 11,
+        "type": "code",
+        "purpose": "district_superhost_rate 분포 및 RevPAR 상관",
+        "content_hint": "자치구별 슈퍼호스트 비율 바차트(내림차순). 상관계수 계산(district_superhost_rate vs district_median_revpar). scatter + 추세선.",
+        "key_variables": ["sh_rate_corr", "fig_sh_rate"]
+      },
+      {
+        "cell_num": 12,
+        "type": "code",
+        "purpose": "RevPAR Trend 자치구별 비교",
+        "content_hint": "district별 revpar_trend 평균/중위. 상승 vs 하락 구 식별. 바차트(상승=초록, 하락=빨강).",
+        "key_variables": ["district_trend_stats", "fig_district_trend"]
+      },
+      {
+        "cell_num": 13,
+        "type": "code",
+        "purpose": "가설 H6~H9 검증 결과 요약",
+        "content_hint": "H6: 공급-RevPAR rho. H7: POI유형 Kruskal p. H8: 인구-RevPAR rho. H9: dormant-RevPAR rho. DataFrame 출력.",
+        "key_variables": ["platform_hypothesis_summary"]
+      },
+      {
+        "cell_num": 14,
+        "type": "code",
+        "purpose": "자치구별 집계 결과 저장",
+        "content_hint": "district_agg.to_csv('data/processed/district_aggregates.csv'). dormant_ratio_df.to_csv(). 저장 완료 메시지.",
+        "key_variables": ["saved_district_data"]
+      },
+      {
+        "cell_num": 15,
+        "type": "markdown",
+        "purpose": "플랫폼 EDA 결론 및 다음 단계",
+        "content_hint": "## 결론\n- H6: 공급-RevPAR 역관계 (rho < 0)\n- H7: POI 유형별 유의미한 차이\n- H8: 인구와 RevPAR 약한 음의 상관\n- H9: dormant비율과 Active RevPAR 음의 상관\n- 다음: 05_platform_clustering.ipynb"
+      },
+      {
+        "cell_num": 16,
+        "type": "code",
+        "purpose": "district_entire_home_rate vs RevPAR 시각화",
+        "content_hint": "x=district_entire_home_rate(독채 비율), y=district_median_revpar. 산점도 + 회귀선. 자치구명 레이블. 독채 비율 높은 구 특성 파악.",
+        "key_variables": ["entire_home_corr", "fig_entire_home"]
+      },
+      {
+        "cell_num": 17,
+        "type": "code",
+        "purpose": "자치구별 RevPAR × 공급량 × 슈퍼호스트비율 3차원 버블",
+        "content_hint": "x=district_listing_count, y=district_median_revpar, 버블=district_superhost_rate*100. 색=district_operating_rate. 복합 지표 시각화.",
+        "key_variables": ["fig_district_3d_bubble"]
+      },
+      {
+        "cell_num": 18,
+        "type": "code",
+        "purpose": "플랫폼 EDA 결과 JSON 저장",
+        "content_hint": "platform_eda_results = {H6~H9 검증 결과, 자치구 순위, POI 통계}. json.dump()로 agents/platform_eda_summary.json 저장.",
+        "key_variables": ["platform_eda_results"]
+      },
+      {
+        "cell_num": 19,
+        "type": "code",
+        "purpose": "자치구별 전체 대시보드 종합 출력",
+        "content_hint": "print 형식으로 25개 자치구 × [RevPAR, 리스팅수, 점유율, ADR, dormant비율, superhost비율] 종합 테이블 출력.",
+        "key_variables": ["platform_dashboard_df"]
+      },
+      {
+        "cell_num": 20,
+        "type": "markdown",
+        "purpose": "플랫폼 EDA 부록 — 추가 가설 탐색",
+        "content_hint": "## 부록: 추가 탐색 결과\n- district_operating_rate 분포\n- 관광구 vs 주거구 RevPAR 비교\n- 시장 건전성 지표 정의"
+      }
+    ],
+    "05_platform_clustering.ipynb": [
+      {
+        "cell_num": 0,
+        "type": "markdown",
+        "purpose": "노트북 제목 — 자치구 K-Means 클러스터링",
+        "content_hint": "# 자치구 K-Means 클러스터링\n목적: 25개 자치구를 RevPAR 성과 기반 4개 군집으로 분류. 군집별 전략 수립."
+      },
+      {
+        "cell_num": 1,
+        "type": "code",
+        "purpose": "라이브러리 및 데이터 로드",
+        "content_hint": "sklearn.cluster.KMeans, sklearn.preprocessing.StandardScaler, sklearn.metrics.silhouette_score 임포트. district_agg 로드.",
+        "key_variables": ["district_agg", "CLUSTER_FEATURES", "OPTIMAL_K"]
+      },
+      {
+        "cell_num": 2,
+        "type": "code",
+        "purpose": "dormant_ratio 계산 및 집계",
+        "content_hint": "dormant_ratio = district별 Dormant수 / 전체수. district_agg에 병합. poi_type_tourism_ratio 계산(nearest_poi_type_name 기준).",
+        "key_variables": ["dormant_ratio", "district_cluster_df"]
+      },
+      {
+        "cell_num": 3,
+        "type": "code",
+        "purpose": "클러스터링 피처 스케일링",
+        "content_hint": "CLUSTER_FEATURES = [median_revpar, listing_count_log, superhost_rate, operating_rate, entire_home_rate, ttm_pop_log, poi_dist_mean, dormant_ratio]. StandardScaler. X_scaled 생성.",
+        "key_variables": ["X_scaled", "scaler", "CLUSTER_FEATURES"]
+      },
+      {
+        "cell_num": 4,
+        "type": "code",
+        "purpose": "Elbow Method (k=2~8) 시각화",
+        "content_hint": "fig, axes = plt.subplots(1,2,figsize=(14,6)). 좌: Inertia. 우: Silhouette Score. 추천 k 수직선 강조. optimal_k 결정.",
+        "key_variables": ["inertias", "silhouette_scores", "optimal_k", "fig_elbow"]
+      },
+      {
+        "cell_num": 5,
+        "type": "code",
+        "purpose": "K-Means(k=4) 클러스터링 실행",
+        "content_hint": "KMeans(n_clusters=4, init='k-means++', n_init=10, random_state=42). district_cluster_df['cluster'] = km.labels_. 실루엣 점수 최종 출력.",
+        "key_variables": ["km_model", "cluster_labels", "final_silhouette"]
+      },
+      {
+        "cell_num": 6,
+        "type": "code",
+        "purpose": "클러스터별 자치구 목록 및 특성 요약",
+        "content_hint": "for cluster in range(4): districts = ..., mean_revpar = ... 출력. 클러스터별 대표 특성 식별. 자동 명명 로직.",
+        "key_variables": ["cluster_summary", "cluster_name_map"]
+      },
+      {
+        "cell_num": 7,
+        "type": "code",
+        "purpose": "클러스터별 특성 히트맵 (정규화)",
+        "content_hint": "cluster_heatmap = district_cluster_df.groupby('cluster_name')[CLUSTER_FEATURES].mean(). MinMax 정규화. seaborn heatmap. 실제값 어노테이션.",
+        "key_variables": ["cluster_heatmap", "fig_cluster_heatmap"]
+      },
+      {
+        "cell_num": 8,
+        "type": "code",
+        "purpose": "자치구 포지셔닝 산점도 (점유율 vs RevPAR)",
+        "content_hint": "x=median_occupancy*100, y=median_revpar/1000. 클러스터별 색상(Set1). 자치구명 어노테이션. 클러스터 중심점 X 마커.",
+        "key_variables": ["fig_cluster_scatter"]
+      },
+      {
+        "cell_num": 9,
+        "type": "code",
+        "purpose": "클러스터별 리스팅 수 vs RevPAR 버블 차트",
+        "content_hint": "x=listing_count, y=median_revpar/1000. 버블=superhost_rate*100. 클러스터 색상. 공급-RevPAR 역관계 시각화.",
+        "key_variables": ["fig_cluster_supply_revpar"]
+      },
+      {
+        "cell_num": 10,
+        "type": "code",
+        "purpose": "Ridge 회귀 (자치구 RevPAR 예측, n=25)",
+        "content_hint": "from sklearn.model_selection import LeaveOneOut. Ridge(alpha=1.0). LOO-CV. y_true vs y_pred 산점도. R2, MAE 출력.",
+        "key_variables": ["model_district_ridge", "loo_r2", "fig_district_ridge"]
+      },
+      {
+        "cell_num": 11,
+        "type": "code",
+        "purpose": "클러스터별 RevPAR 분포 바이올린 플롯",
+        "content_hint": "개별 리스팅 레벨 df_ao에 cluster 병합. 클러스터별 ttm_revpar 분포 violinplot. 클러스터명 x축.",
+        "key_variables": ["fig_cluster_violin"]
+      },
+      {
+        "cell_num": 12,
+        "type": "code",
+        "purpose": "클러스터 안정성 검증 (Bootstrap)",
+        "content_hint": "100회 bootstrap 샘플링. 각 부트스트랩에서 KMeans 실행. 클러스터 구성 안정성 확인(Jaccard 유사도). 불안정 자치구 식별.",
+        "key_variables": ["bootstrap_stability", "unstable_districts"]
+      },
+      {
+        "cell_num": 13,
+        "type": "code",
+        "purpose": "클러스터 결과 저장",
+        "content_hint": "district_cluster_df.to_csv('data/processed/district_clusters.csv'). joblib.dump(km_model, 'models/kmeans_district.pkl'). joblib.dump(scaler, 'models/district_scaler.pkl').",
+        "key_variables": ["saved_clustering_files"]
+      },
+      {
+        "cell_num": 14,
+        "type": "markdown",
+        "purpose": "클러스터링 결론 및 플랫폼 전략 연결",
+        "content_hint": "## 결론\n4개 클러스터 특성 요약\n- 프리미엄 관광거점: 종로, 광진, 강동\n- 성장형 주거상권: 마포, 용산, 중구\n- 중가 균형시장: 강남, 서초, 송파\n- 가격민감 외곽: 동작, 금천, 중랑\n다음: 06_platform_insights.ipynb"
+      },
+      {
+        "cell_num": 15,
+        "type": "code",
+        "purpose": "클러스터 결과 JSON 저장",
+        "content_hint": "clustering_results = {cluster_profiles, district_assignments, silhouette_score, ridge_r2}. json.dump()로 agents/clustering_results.json 저장.",
+        "key_variables": ["clustering_results"]
+      },
+      {
+        "cell_num": 16,
+        "type": "code",
+        "purpose": "클러스터별 dormant_ratio 비교",
+        "content_hint": "클러스터별 dormant_ratio 평균 바차트. 가격민감 외곽 클러스터의 dormant_ratio가 가장 높을 것 예상. H9 플랫폼 관점 검증.",
+        "key_variables": ["cluster_dormant_comparison", "fig_cluster_dormant"]
+      },
+      {
+        "cell_num": 17,
+        "type": "code",
+        "purpose": "클러스터별 슈퍼호스트 비율 vs RevPAR 패턴",
+        "content_hint": "클러스터별 superhost_rate vs median_revpar 산점도 (자치구 레벨). 클러스터별 서로 다른 패턴 확인.",
+        "key_variables": ["fig_cluster_sh_revpar"]
+      },
+      {
+        "cell_num": 18,
+        "type": "code",
+        "purpose": "클러스터별 전략 매트릭스 출력",
+        "content_hint": "DataFrame: 클러스터명, 자치구목록, 핵심특성, 플랫폼전략, 호스트전략. print 형식 출력.",
+        "key_variables": ["cluster_strategy_matrix"]
+      },
+      {
+        "cell_num": 19,
+        "type": "code",
+        "purpose": "차기 분석 입력 데이터 준비",
+        "content_hint": "platform_analysis_data = district_cluster_df.merge(dormant_ratio). 06 노트북에서 사용할 통합 데이터 저장.",
+        "key_variables": ["platform_analysis_data"]
+      },
+      {
+        "cell_num": 20,
+        "type": "markdown",
+        "purpose": "클러스터링 부록 — 대안 k 비교",
+        "content_hint": "## 부록: k=3 vs k=4 vs k=5 비교\n각 k에서 클러스터 구성 비교. 비즈니스 해석 용이성 기준으로 k=4 선택 근거."
+      }
+    ],
+    "06_platform_insights.ipynb": [
+      {
+        "cell_num": 0,
+        "type": "markdown",
+        "purpose": "노트북 제목 — 플랫폼 운영 인사이트",
+        "content_hint": "# 플랫폼 운영 인사이트 및 액션 아이템\n목적: 클러스터링 결과를 바탕으로 플랫폼 차별화 전략과 Dormant 방지 시스템 설계"
+      },
+      {
+        "cell_num": 1,
+        "type": "code",
+        "purpose": "라이브러리 및 클러스터 결과 로드",
+        "content_hint": "district_cluster_df 로드. platform_analysis_data 로드. df, df_ao 로드. 클러스터 명명 dict 재정의.",
+        "key_variables": ["district_cluster_df", "platform_analysis_data", "cluster_name_map"]
+      },
+      {
+        "cell_num": 2,
+        "type": "code",
+        "purpose": "클러스터별 RevPAR 성과 비교 대시보드",
+        "content_hint": "fig, axes = plt.subplots(2,2,figsize=(14,8)). 클러스터별 RevPAR, 점유율, ADR, 리스팅수 4개 지표 바차트. 전체 기준선 표시.",
+        "key_variables": ["cluster_kpi_summary", "fig_cluster_dashboard"]
+      },
+      {
+        "cell_num": 3,
+        "type": "code",
+        "purpose": "dormant_ratio 자치구별 지도(대안: 바차트)",
+        "content_hint": "자치구별 dormant_ratio 수평 바차트(내림차순). 색상: 고위험(빨강) / 중위험(주황) / 저위험(초록). 개입 필요 임계값(0.6) 표시.",
+        "key_variables": ["dormant_map_df", "fig_dormant_map"]
+      },
+      {
+        "cell_num": 4,
+        "type": "code",
+        "purpose": "Dormant 전환 위험 조기 경보 조건 정의",
+        "content_hint": "risk_conditions = [dormant_ratio > 0.6, superhost_rate < 0.35, operating_rate < 0.5]. risk_score 계산. 자치구별 위험 등급(1~3) 분류.",
+        "key_variables": ["risk_score_df", "fig_risk_matrix"]
+      },
+      {
+        "cell_num": 5,
+        "type": "code",
+        "purpose": "공급-수요 갭 분석 (신규 호스트 유치 타겟)",
+        "content_hint": "ttm_pop / district_listing_count = 인당 공급량. 수요 대비 공급 부족 자치구 식별. 목표: 인당 공급량 높은 구(희소) vs 낮은 구(포화).",
+        "key_variables": ["supply_gap_df", "target_districts", "fig_supply_gap"]
+      },
+      {
+        "cell_num": 6,
+        "type": "code",
+        "purpose": "클러스터별 슈퍼호스트 비율 목표 설정",
+        "content_hint": "현재 district_superhost_rate vs 클러스터 평균. 목표 superhost_rate(클러스터 상위 25%) 계산. 개선 여지 바차트.",
+        "key_variables": ["sh_target_df", "fig_sh_improvement"]
+      },
+      {
+        "cell_num": 7,
+        "type": "code",
+        "purpose": "플랫폼 정책 우선순위 매트릭스",
+        "content_hint": "x=dormant_ratio, y=district_median_revpar. 버블=listing_count. 4개 사분면: [고RevPAR/고Dormant=품질유지], [저RevPAR/고Dormant=긴급개입], [고RevPAR/저Dormant=성장촉진], [저RevPAR/저Dormant=수요창출]. 클러스터 색상.",
+        "key_variables": ["policy_matrix_df", "fig_policy_matrix"]
+      },
+      {
+        "cell_num": 8,
+        "type": "code",
+        "purpose": "H9 검증: dormant_ratio vs Active RevPAR 최종 확인",
+        "content_hint": "Spearman rho(dormant_ratio, active_median_revpar). 산점도 + 회귀선. p-value. H9 수용/기각 결론.",
+        "key_variables": ["h9_final_test", "fig_h9_final"]
+      },
+      {
+        "cell_num": 9,
+        "type": "code",
+        "purpose": "자치구별 RevPAR 성장 잠재력 점수 계산",
+        "content_hint": "growth_potential = (1 - dormant_ratio) × superhost_rate × (median_revpar / max_revpar). 25개 자치구 점수 바차트.",
+        "key_variables": ["growth_potential_df", "fig_growth_potential"]
+      },
+      {
+        "cell_num": 10,
+        "type": "code",
+        "purpose": "클러스터별 차별화 전략 액션 아이템 테이블",
+        "content_hint": "DataFrame: 클러스터명, 대표자치구, 핵심이슈, 플랫폼액션, 호스트지원, 기대효과(RevPAR증가율%). 출력 및 CSV 저장.",
+        "key_variables": ["action_items_df"]
+      },
+      {
+        "cell_num": 11,
+        "type": "code",
+        "purpose": "RevPAR 시뮬레이션 — Dormant→Active 전환 효과",
+        "content_hint": "가정: 각 자치구 Dormant의 10%가 Active+Operating으로 전환 시 district RevPAR 변화. 시뮬레이션 결과 바차트.",
+        "key_variables": ["simulation_df", "fig_simulation"]
+      },
+      {
+        "cell_num": 12,
+        "type": "code",
+        "purpose": "호스트 관점 vs 플랫폼 관점 인사이트 통합",
+        "content_hint": "SHAP top features(03 노트북) + 클러스터 전략 통합. 자치구별 호스트 권장 사항 매핑. 예: 마포구 = LightGBM 예측 기반 최적 사진수/평점 목표값 제시.",
+        "key_variables": ["integrated_insights"]
+      },
+      {
+        "cell_num": 13,
+        "type": "code",
+        "purpose": "최종 종합 대시보드 시각화",
+        "content_hint": "fig = plt.figure(figsize=(14,8)). GridSpec 2×3. [클러스터RevPAR바, 정책매트릭스, dormant지도, growth_potential바, 공급갭, 액션우선순위]. 프레젠테이션 수준.",
+        "key_variables": ["fig_final_dashboard"]
+      },
+      {
+        "cell_num": 14,
+        "type": "markdown",
+        "purpose": "플랫폼 인사이트 최종 결론",
+        "content_hint": "## 플랫폼 전략 결론\n1. 긴급개입: 동작구, 금천구, 중랑구 (Dormant 고위험)\n2. 품질 향상: 마포구, 중구 (공급과잉, 슈퍼호스트 비율 개선)\n3. 성장 촉진: 강동구, 광진구 (희소 공급, 고RevPAR)\n4. 수요 창출: 노원구, 강북구 (저RevPAR 외곽)"
+      },
+      {
+        "cell_num": 15,
+        "type": "code",
+        "purpose": "자치구 에어비앤비 적합성 점수 최종 계산",
+        "content_hint": "airbnb_score = weighted sum of [normalized RevPAR, operating_rate, superhost_rate, (1-dormant_ratio), poi_tourism_ratio]. 가중치: [0.35, 0.2, 0.2, 0.15, 0.1]. 25개 자치구 순위 바차트.",
+        "key_variables": ["airbnb_score_df", "fig_airbnb_score"]
+      },
+      {
+        "cell_num": 16,
+        "type": "code",
+        "purpose": "분석 결과 최종 JSON 저장",
+        "content_hint": "platform_insights = {cluster_strategy, action_items, risk_scores, growth_potential, airbnb_scores}. json.dump()로 agents/platform_insights.json 저장.",
+        "key_variables": ["platform_insights"]
+      },
+      {
+        "cell_num": 17,
+        "type": "code",
+        "purpose": "전체 프로젝트 결과 요약 출력",
+        "content_hint": "print('='*60). '서울 에어비앤비 RevPAR 분석 — 전체 결과 요약'. 호스트 관점 top 5 인사이트 + 플랫폼 관점 top 5 인사이트. 모델 성능 요약.",
+        "key_variables": ["final_summary"]
+      },
+      {
+        "cell_num": 18,
+        "type": "markdown",
+        "purpose": "프로젝트 완료 및 다음 단계 안내",
+        "content_hint": "## 프로젝트 완료\n생성 노트북: 00~06 (7개)\n핵심 산출물:\n- 호스트 RevPAR 예측 모델 (LightGBM, R2~0.7)\n- 자치구 클러스터링 (4개 군집)\n- SHAP 기반 호스트 액션 가이드\n- 플랫폼 정책 우선순위 매트릭스"
+      },
+      {
+        "cell_num": 19,
+        "type": "code",
+        "purpose": "보고서용 핵심 수치 추출",
+        "content_hint": "executive_summary = {총 리스팅수, AO 비율, Superhost 프리미엄%, 최고RevPAR구, 최저RevPAR구, 클러스터 요약, 모델R2, 권고사항}. JSON 저장.",
+        "key_variables": ["executive_summary"]
+      }
+    ]
+  }
+}
